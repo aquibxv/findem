@@ -1,0 +1,66 @@
+ {% load static %}
+ <!-- Top Navigatin bar -->
+ <nav class="navbar navbar-expand-lg navbar-light bg-success" id="navbar-container">
+    <div class="container">
+      <a class="navbar-brand" id="branding-findem" href="{% url 'index' %}">Findem</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <form class="form-inline my-2 my-lg-0" autocomplete="off" 
+          {% if 'profile' in request.path %}
+            style="display:none;"
+          {% endif %}
+          >
+            <div class="autocomplete">
+              <input class="form-control mr-2"  id="skill-input"  type="search" placeholder="Looking for ?" aria-label="Search" style="width:300px">
+              <a class="btn btn-outline-light my-2 my-sm-0" type="button submit" href="{% url 'search'%}">Search</a>    
+            </div>
+          </form>
+      </div>
+
+
+      <!--Top right navigation bar-->
+      <div class="d-flex justify-content-end">
+
+          <!--Options for logged user-->
+          <nav class="navbar bg-success justify-content-end" style="display:none">
+          <ul class="navbar-nav mr-auto ">
+  
+            <li class="nav-item">
+              <a href="" id="how-it-works">How it works</span></a>
+            </li>
+            <li class="nav-item">
+                <div class="dropdown">
+                  <a class="nav-link dropdown-toggle" id="navbar-user" href="###" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="sr-only">(current)</span>
+                      <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                  </a>
+  
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <h6 class="dropdown-header">Jhon Doe</h6>
+                      <a class="dropdown-item" href="#">Account</a>
+                      <a class="dropdown-item" href="#">Settings</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Logout</a>
+                  </div>
+                </div>           
+            </li>
+          </ul>
+          </nav>
+
+          <!--Options for Non-logged user-->
+          <nav class="navbar bg-success justify-content-end">
+            <ul class="navbar-nav mr-auto ">
+              <li class="nav-item">
+               <a class="nav-link" id="navbar-login-signup" href="{% url 'login' %}">Login</a>
+              </li>
+              <li class="nav-item">
+               <a class="nav-link" id="navbar-login-signup" href="{% url 'signup' %}">SignUp</a>
+              </li>
+            </ul>
+          </nav>
+      </div>
+    </div>
+</nav>

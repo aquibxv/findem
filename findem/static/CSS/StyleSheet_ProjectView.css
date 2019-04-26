@@ -1,0 +1,30 @@
+/* Project Banner */
+div.project-banner {
+    text-align: center;
+    background: url("/Images/Pexels/banner7.jpeg");
+    background-position: 0px -145px;; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+div.project-body {
+    background: #fff;
+    border: 1px solid #ccc;
+}
+
+.fas {
+    font-size: 1.2rem;
+}
+   
+.fa-award {
+    font-size: 1.5rem;
+}
+   
+div.project-header-container h5 {   
+    font-weight:lighter;
+}
+   
+#live {
+    color: green;
+}
+   

@@ -1,0 +1,127 @@
+/* Style Sheet for Settings page*/
+/* Top-Navigation bar */
+/*Top Navbar*/
+/* Profile Image */
+body {
+    background-color: rgba(238, 238, 238, 0.945);
+}
+a#navbar-user img{
+    width: 37px;
+    height: 35px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    padding:0px;
+    margin:0px;
+}
+
+a#navbar-user {
+    color:white;
+}
+
+a#how-it-works {
+    display: inline-block;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    padding:6px 10px;
+    margin-top: 7px;
+    margin-right: 10px; 
+    transition: 0.25s;
+}
+
+a#how-it-works:hover {
+    background: #fff;
+    color:#111;
+}
+
+
+* {box-sizing: border-box}
+    body {
+      font-family: "Lato", sans-serif;
+      background: #fff;
+    }
+    
+    /* Style the tab */
+    .tab {
+      float: left;
+      border-right: 1px solid #ccc;
+      background-color: #fff;
+      width: 14%;
+      height: 550px;
+      margin-left: 0px;
+    }
+    
+    /* Style the buttons inside the tab */
+    .tab button {
+      display: block;
+      background-color: inherit;
+      color: black;
+      padding: 5px 16px;
+      width: 100%;
+      border: none;
+      outline: none;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 15px;
+    }
+    
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      background-color: #eee;
+    }
+    
+    /* Create an active/current "tab button" class */
+    .tab button.active {
+      background-color: #ddd;
+    }
+    
+    /* Styling the tab-contents */
+    div.tab-contents {
+    
+      margin-left: 180px;
+      width: 80%;
+    }
+
+/*This css is for autocomplete input for colleges names*/
+.autocomplete {
+  /*the container must be positioned relative:*/
+  width : 100%;
+  position: relative;
+  display: inline-block;
+}
+
+#user-skills{
+  width: 40%;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff; 
+  border-bottom: 1px solid #d4d4d4; 
+}
+
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9; 
+}
+
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}

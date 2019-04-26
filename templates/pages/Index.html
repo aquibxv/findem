@@ -1,0 +1,73 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     
+     <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
+	<title>Findem | Home</title>
+
+</head>
+
+<body>
+<!--Top navigation bar-primary-->
+{% include 'partials/_top-navigation-primary.html' %}
+
+<!-- Body the main page -->
+<div class="home-page-display-container">
+
+<div class="row" id="home-page-display">
+  <div class="col-sm-6" id="home-page-left">
+    <div class="findem-banner-container">
+      <h1 class="display-4">Findem</h1>
+      <h4 class="display-4" id="findem-info-about">Findem is a place to find people with skills and<br/> collaborate with them</h4>
+    </div>
+  </div>
+
+  <div class="col-sm-6" id="home-page-right">
+    <div class="findem-home-page-form" id="findem-home-form">
+      <!--Form page for login-->
+      <form class="needs-validation form-signin" id="signin-form" novalidate>
+      <h1 class="h5 mb-3 font-weight-bold">Login</h1>
+
+      <div>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="email" id="inputEmail" class="form-control mb" placeholder="Email address" required>
+      </div>
+
+      <div>
+         <label for="inputPassword" class="sr-only">Password</label>
+          <input type="password" id="inputPassword" class="form-control mt-4" placeholder="Password" required>
+          <a href="###" id="fgtpwd">Forgot passoword?</a>
+      </div>
+      <button class="btn btn-success btn-outline-success mt-3" id="signIn-btn" type="submit">Sign in</button>
+    </form>
+
+    <hr/ style="padding:0px">
+    <!--Social media buttons-->
+    <div class="social-media-signin">
+      <a href="###" class="google social-btn" >
+            <i class="fa fa-google fa-fw"></i><span id="google-btn">Login with Google</span>
+      </a>
+    </div>
+    
+    </div>
+  </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="{% static 'JS/Index_JS.js' %}"></script>
+</body>
+
+<!--Footer-->
+{% include 'partials/_footer.html' %}
+
+</html>

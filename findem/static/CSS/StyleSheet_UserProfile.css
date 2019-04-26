@@ -1,0 +1,75 @@
+/*NavBar - Findem randing*/
+.form-control:focus {
+    border-color: rgb(0, 230, 0);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 230, 0, 0.8);
+}
+
+nav#navbar-container{
+  border-bottom: 1px solid #ddd;
+padding: 0px;
+}
+
+a.navbar-brand{
+font-family: 'Lobster', cursive;
+font-size: 2.1rem;
+}
+
+/*CSS for input search bar*/
+
+input[type=text]:focus {
+width: 100%;
+}
+
+a#branding-findem {
+color:#fff;
+}
+
+a#navbar-login-signup {
+color: #fff;
+}
+a#navbar-login-signup:hover {
+border-radius: 5px;
+background: hsl(120, 100%, 30%);
+}
+
+/* Nav back link */
+a#nav-back {
+    display: inline-block;
+    font-size: 1.3rem;
+    color: #111;
+    padding:20px;
+    margin-bottom: 4px;
+    text-decoration: none;
+}
+
+/*Footer*/
+footer.footer-container {
+	background: #16182c;
+}
+
+
+footer.footer-container div.footer-block {
+	margin:auto;
+	margin-left: 38%;
+}
+
+footer div.footer-block ul.footer-list {
+	
+	text-align: center;
+	list-style-type: none;
+    margin: 0;
+    padding: 10;
+    overflow: hidden;
+}
+
+footer div.footer-block ul.footer-list li {
+	float: left;
+}
+
+footer div.footer-block ul.footer-list li a {
+	display: block;
+	color: #fff;
+	padding:15px;
+	text-decoration: none;
+	text-align: center;
+}

@@ -1,0 +1,247 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_SignUp.css' %}">
+  <title>SingUp Page</title>
+  
+   <!--Script for Upload Skills-->
+   <script>
+       // function to add new item of skill upload
+        var upload_number_skill = 2;
+        $(document).ready(function() {
+        
+        $('#attachMoreSkill').click(function() {
+          //add more file
+          var moreUploadTag = '';
+    
+          moreUploadTag += '<input type="text" class="form-control float-left mb-0" placeholder="Enter Skill" id="upload_skill' + upload_number_skill + '" name="upload_skill' + upload_number_skill + '"/>';
+    
+          moreUploadTag += ' <a class="btn btn-danger" class="float-right" href="javascript:del_file(' + upload_number_skill + ')" style="cursor:pointer;">Delete ' + upload_number_skill + '</a>';
+    
+          $('<dl id="delete_file' + upload_number_skill + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreSkillsUpload .autocomplete');
+    
+          upload_number_skill++;
+    
+          // if more than 6 files are uploaded then hide 'attach more files'
+          if (upload_number_skill > 6) {
+              $("#moreSkillsUploadLink").hide();
+            }
+
+          // call auto complete function for the newly added input
+          autocomplete(document.getElementById("upload_skill2"), skillList);
+          autocomplete(document.getElementById("upload_skill3"), skillList);
+          autocomplete(document.getElementById("upload_skill4"), skillList);
+          autocomplete(document.getElementById("upload_skill5"), skillList);
+          autocomplete(document.getElementById("upload_skill6"), skillList);
+        });
+      });
+      
+        // function to delete a file
+        function del_file(eleId) {
+        var ele = document.getElementById("delete_file" + eleId);
+        ele.parentNode.removeChild(ele);
+    
+        // decrease the upload file counter soon as deleted an element
+        --upload_number_skill;
+    
+        // if uploading number is less than 7 then show the upload file button
+        if (upload_number_skill < 7) {
+          $("#moreSkillsUploadLink").show();
+        }
+      }
+    </script>
+</head>
+<body>
+
+<div class="container" id="body">
+    <div>
+      <h4 class="title-back">Findem</h4>
+      <span class="back-btn"><a href="{% url 'index' %}"><img src="{% static 'Images/back.png' %}" alt="back"></a></span>
+    </div>
+    <h4 class="display-4" style="color: green; font-size: 3rem;">Create an account</h4>
+    <hr/>
+    <form class="needs-validation" novalidate autocomplete="off" >
+
+    <div id="Personal_Information">
+    <h5 class="loginSignup">Personal Information</h5>
+
+       <div class="form-group row">
+        <label for="inputprofile" class="col-sm-2 col-form-label">Profile Picture</label>
+        <div class="col-sm-5">
+          <div class="input-group">
+          <div class="custom-file">
+           <input type="file" class="custom-file-input" id="inputprofile">
+           <label class="custom-file-label" for="inputprofile" aria-describedby="inputprofile">Choose file</label>
+          </div>
+         </div>
+       </div>
+      </div>
+
+      <div class="form-group required row">
+        <label for="inputname" class="col-sm-2 col-form-label">Full Name <span id="required-field">*
+         </span>
+        </label>
+
+       <div class="col-sm-5">
+         <input type="text" class="form-control" id="inputname" placeholder="Enter Your Full Name" required>
+         <div class="valid-feedback">Looks good!</div>
+         <div class="invalid-feedback">Please enter your full name.</div>
+        </div>
+
+      </div>
+
+      <div class="form-group row">
+        <label for="inputemal" class="col-sm-2 col-form-label">Email <span id="required-field">*</span></label>
+         <div class="col-sm-5">
+           <input type="email" class="form-control" id="inputEmail" placeholder="Enter a Valid Email Address" required>
+           <div class="valid-feedback">Looks good!</div>
+           <div class="invalid-feedback">Please provide a valid email.</div>
+        </div>
+      </div>
+  
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Password <span id="required-field">*</span></label>
+         <div class="col-sm-5">
+           <input type="password" class="form-control" id="inputPassword" placeholder="Choose a Password" required>
+           <div class="valid-feedback">Looks good!</div>
+           <div class="invalid-feedback">Please chose a valid password.</div>
+        </div>
+      </div>
+
+  <!--  Renter Password
+    <div class="form-group row">
+        <label for="inputRepassword" class="col-sm-2 col-form-label ">Re-Enter Password</label>
+         <div class="col-sm-5">
+           <input type="password" class="form-control" id="inputRepassword" placeholder="Re-Enter Password">
+           <div class="valid-feedback">Looks good!</div>
+           <div class="invalid-feedback">Please upload profile picture.</div>
+        </div>
+      </div>
+ -->
+
+  <!--Date of Birth
+      <div class="form-group row">
+        <label for="inputdob" class="col-sm-2 col-form-label ">Date of Birth <span id="required-field">*</span></label>
+       <div class="col-sm-5">
+        <input type="date" class="form-control" id="inputdob" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please enter your DOB.</div>
+      </div>
+      </div>
+    -->
+
+    <!--User Gender
+      <div class="form-group row">
+        <label for="inputGender" class="col-sm-2 col-form-label"> Gender <span id="required-field">*</span></label>
+       <div class="col-sm-5">
+        <div class="col-sm-15">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineGender1" value="option1" checked>
+            <label class="form-check-label" for="inlineRadio1">Male</label>
+          </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineGender2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Female</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineGender3" value="option3">
+            <label class="form-check-label" for="inlineRadio3">Other</label>
+        </div>
+
+        </div>
+       </div>
+      </div>
+    -->
+  </div>
+  <hr/>
+  <br/>
+
+  <div id="Professional_Information">
+  <h5 class="loginSignup">Professional Information</h5>
+
+  <div class="form-group mb-3">
+      <label for="inputDegree">Highest Degree Earned <span id="required-field">*</span></label> <br>
+      <select class="custom-select select-input" name="inputDegree" id="inputDegree" style="width:50%;" required>
+          <option selected="true" disabled="disabled">Choose Degree</option>
+          <option value="0">Standard Project</option>
+          <option value="1">Mini Project</option>
+          <option value="2">Personal Project</option>
+          <option value="3">Major Project (Final Year)</option>
+          <option value="5">Cash/Incentive Based Project</option>
+          <option value="6">Startup Based Project</option>
+          <option value="7">Hackathon/Competition Based Project</option>
+          <option value="8">Others</option>
+      </select>
+      <div class="valid-feedback">Looks good!</div>
+      <div class="invalid-feedback">Please enter your highest earned degree</div>
+  </div>
+
+    <div class="form-group mb-3" style="width:50%;">
+      <label for="myInput">Enter College Name <span id="required-field">*</span></label><br/>
+      <div class="autocomplete">
+        <input type="text" id="input-college" class="form-control" name="CollegeName" aria-describedby="inputcollegeNmae" placeholder="Where do you study?" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please choose your college/university.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="inputGradYear">Expected Graudation Year <span id="required-field">*</span></label>
+      <div class="input-group mb-3" style="width:20%">
+      <select class="custom-select" id="inputGroupYear" required="">
+        <option selected>2020</option>
+        <option value="1">2020</option>
+        <option value="2">2021</option>
+        <option value="3">2022</option>
+        <option value="4">2023</option>
+        <option value="5">2024</option>
+        <option value="6">2025</option>
+      </select>
+       <div class="valid-feedback">Looks good!</div>
+    </div>
+    </div>
+
+  <div class="form-group mb-3">
+    <label for="inputSkills">Enter Skill(s) (One is required) <span id="required-field">*</span></label><br/>
+   
+    <!--Dynamic Add Skill Tag Functionality-->
+      <div class="element-skill form-group">
+        <div class="autocomplete">
+           <input type="text" class="form-control" name="upload_skill1" id="upload_skill1"  placeholder="Enter Skill" required>
+           <div class="valid-feedback">Looks good!</div>
+           <div class="invalid-feedback">Please enter a skill.</div>
+        </div>
+      </div>
+      
+      <div id="moreSkillsUpload" style="margin:0px;">
+          <div class="autocomplete">
+             <!--Here the new Items are added-->
+          </div> 
+      </div>
+      <div class="clear"></div>
+            
+      <div id="moreSkillsUploadLink" style="margin-top:0px;">
+          <a class="btn btn-sm btn-outline-secondary" href="javascript:void(0);" id="attachMoreSkill">Add another skill</a>
+      </div>
+  </div>
+
+  </div>
+      <button type="submit" class="btn btn-success mt-3" id="loginButton">Sign Up</button>
+</form> 
+</div>
+</body>
+ <script type="text/javascript" src="{% static 'JS/SingUp_js.js' %}"></script>
+
+
+
+</html>

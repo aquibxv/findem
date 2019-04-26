@@ -1,0 +1,47 @@
+  /*Style Sheet for Contact Page*/
+
+  body{
+    background: #ddd9;
+  }
+  
+  a:hover{
+    text-decoration: none;
+  }
+
+  div.Info-container p{
+    margin:2px;
+  }
+
+  .title {
+    display: inline-block;
+    font-family: 'Lobster', cursive;
+    font-size: 2.7rem;
+    color: green;
+    margin-left:13px; 
+  }
+
+  h3.position {
+    color: #888;
+    font-size: 1.2rem;
+  }
+
+  div.team-container h1{
+    
+    font-size: 3.2rem;
+
+  }
+
+
+  
+  div.container {
+
+    background: #fff;
+    padding:30px;
+  }
+
+  div#team-left-img img{
+    
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+  }

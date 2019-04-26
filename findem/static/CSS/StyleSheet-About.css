@@ -1,0 +1,44 @@
+/*Style Sheet for About Page*/
+
+    a:hover {
+      text-decoration: none;
+    }
+
+    div.title-container {
+      padding : 15px;
+      background: green;
+      text-align: center;
+    }
+
+    div#body-container {
+      text-align: center;
+    }
+
+    h2.title {
+      font-family: 'Lobster', cursive;
+        font-size: 3.3rem;
+        color: #fff;
+    }
+
+    h3#mission-header {
+      margin-top: 30px;
+      color: #111;
+      font-size: 3.3rem;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    div.mission {
+      margin:auto;
+      text-align: center;
+      width: 60%;
+    }
+
+    div.mission p {
+      font-size: 2rem;
+      color: #111;
+      font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    div.mission img {
+      width: 60%;
+    }
