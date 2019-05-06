@@ -33,20 +33,24 @@
   </div>
 
   <div class="col-sm-6" id="home-page-right">
+    
     <div class="findem-home-page-form" id="findem-home-form">
+    <!--Alerts-->
+    {% include 'partials/_alerts.html' %}
       <!--Form page for login-->
-      <form class="needs-validation form-signin" id="signin-form" novalidate>
+      <form class="needs-validation form-signin" id="signin-form" action="{% url 'login' %}", method="POST" novalidate>
+        {% csrf_token %}
       <h1 class="h5 mb-3 font-weight-bold">Login</h1>
 
       <div>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control mb" placeholder="Email address" required>
+        <input type="email" name="email" id="inputEmail" class="form-control mb" placeholder="Email address" required>
       </div>
 
       <div>
          <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" id="inputPassword" class="form-control mt-4" placeholder="Password" required>
-          <a href="###" id="fgtpwd">Forgot passoword?</a>
+          <input type="password" id="inputPassword" name="password" class="form-control mt-4" placeholder="Password" required>
+          <a href="###" id="fgtpwd">Forgot password?</a>
       </div>
       <button class="btn btn-success btn-outline-success mt-3" id="signIn-btn" type="submit">Sign in</button>
     </form>
@@ -54,9 +58,16 @@
     <hr/ style="padding:0px">
     <!--Social media buttons-->
     <div class="social-media-signin">
-      <a href="###" class="google social-btn" >
+      <a href="{% url 'social:begin' 'google-oauth2' %}" class="google social-btn" >
             <i class="fa fa-google fa-fw"></i><span id="google-btn">Login with Google</span>
       </a>
+    </div>
+
+    <!--Facebook Login-->
+    <div class="social-media-signin">
+        <a href="###" class="facebook social-btn" >
+              <i class="fa fa-facebook fa-fw"></i><span id="google-btn">Login with Facebook</span>
+        </a>
     </div>
     
     </div>

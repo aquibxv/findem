@@ -75,10 +75,18 @@ div.social-media-signin span {
 	color:#fff;
   }
   
-  a.google-sign-in span#google-sign-in-btn {
-  
-  }
-  
+  a.facebook {
+		background: #fff;
+		border: 1px solid blue;
+		color: blue;
+		transition: background 0.125s;
+		transition-timing-function: ease-in-out;
+	}
+		
+	a.facebook:hover {
+		background:blue;
+		color:#fff;
+	}
 
 div#body {
 	padding:30px 30px;

@@ -165,6 +165,19 @@ a.google:hover {
   color:#fff;
 }
 
+a.facebook {
+  background: #fff;
+  border: 1px solid blue;
+  color: blue;
+  transition: background 0.125s;
+  transition-timing-function: ease-in-out;
+}
+  
+a.facebook:hover {
+  background:blue;
+  color:#fff;
+}
+
 a.google-sign-in span#google-sign-in-btn {
 
 }

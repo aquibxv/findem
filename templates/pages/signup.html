@@ -68,8 +68,11 @@
     </div>
     <h4 class="display-4" style="color: green; font-size: 3rem;">Create an account</h4>
     <hr/>
-    <form class="needs-validation" novalidate autocomplete="off" >
-
+    <!--Alerts-->
+    {% include 'partials/_alerts.html' %}
+    <form class="needs-validation" novalidate autocomplete="off" 
+    action="{% url 'signup' %}", method="POST">
+    {% csrf_token %}
     <div id="Personal_Information">
     <h5 class="loginSignup">Personal Information</h5>
 
@@ -78,7 +81,7 @@
         <div class="col-sm-5">
           <div class="input-group">
           <div class="custom-file">
-           <input type="file" class="custom-file-input" id="inputprofile">
+           <input type="file" class="custom-file-input" id="inputprofile" name="inputprofile">
            <label class="custom-file-label" for="inputprofile" aria-describedby="inputprofile">Choose file</label>
           </div>
          </div>
@@ -91,7 +94,7 @@
         </label>
 
        <div class="col-sm-5">
-         <input type="text" class="form-control" id="inputname" placeholder="Enter Your Full Name" required>
+         <input type="text" class="form-control" name="inputname" id="inputname" placeholder="Enter Your Full Name" required>
          <div class="valid-feedback">Looks good!</div>
          <div class="invalid-feedback">Please enter your full name.</div>
         </div>
@@ -101,7 +104,7 @@
       <div class="form-group row">
         <label for="inputemal" class="col-sm-2 col-form-label">Email <span id="required-field">*</span></label>
          <div class="col-sm-5">
-           <input type="email" class="form-control" id="inputEmail" placeholder="Enter a Valid Email Address" required>
+           <input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Enter a Valid Email Address" required>
            <div class="valid-feedback">Looks good!</div>
            <div class="invalid-feedback">Please provide a valid email.</div>
         </div>
@@ -110,7 +113,7 @@
     <div class="form-group row">
         <label for="inputPassword" class="col-sm-2 col-form-label">Password <span id="required-field">*</span></label>
          <div class="col-sm-5">
-           <input type="password" class="form-control" id="inputPassword" placeholder="Choose a Password" required>
+           <input type="password" class="form-control" id="inputPassword" name="inputPassword" placeholder="Choose a Password" required>
            <div class="valid-feedback">Looks good!</div>
            <div class="invalid-feedback">Please chose a valid password.</div>
         </div>
@@ -173,14 +176,13 @@
       <label for="inputDegree">Highest Degree Earned <span id="required-field">*</span></label> <br>
       <select class="custom-select select-input" name="inputDegree" id="inputDegree" style="width:50%;" required>
           <option selected="true" disabled="disabled">Choose Degree</option>
-          <option value="0">Standard Project</option>
-          <option value="1">Mini Project</option>
-          <option value="2">Personal Project</option>
-          <option value="3">Major Project (Final Year)</option>
-          <option value="5">Cash/Incentive Based Project</option>
-          <option value="6">Startup Based Project</option>
-          <option value="7">Hackathon/Competition Based Project</option>
-          <option value="8">Others</option>
+          <option value="Bachelor of Technology(B.Tech)">Bachelor of Technology(B.Tech)</option>
+          <option value="Master of Technology(M.Tech)">Master of Technology(M.Tech)</option>
+          <option value="Bachelor of Engineering(B.E)">Bachelor of Engineering(B.E)</option>
+          <option value="Bachelor of Computer Application(BCA)">Bachelor of Computer Application(BCA)</option>
+          <option value="Master of Computer Application(MCA)">Master of Computer Application(MCA)</option>
+          <option value="Bachelor of Business Administration(BBA)">Bachelor of Business Administration(BBA)</option>
+          <option value="Master of Business Administration(MBA)">Master of Business Administration(MBA)</option>
       </select>
       <div class="valid-feedback">Looks good!</div>
       <div class="invalid-feedback">Please enter your highest earned degree</div>
@@ -198,14 +200,16 @@
     <div class="form-group">
       <label for="inputGradYear">Expected Graudation Year <span id="required-field">*</span></label>
       <div class="input-group mb-3" style="width:20%">
-      <select class="custom-select" id="inputGroupYear" required="">
-        <option selected>2020</option>
-        <option value="1">2020</option>
-        <option value="2">2021</option>
-        <option value="3">2022</option>
-        <option value="4">2023</option>
-        <option value="5">2024</option>
-        <option value="6">2025</option>
+      <select class="custom-select" id="inputGradYear" name="inputGradYear" required="">
+        <option selected="true" disabled="disabled">Choose Graudation Year</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+        <option value="2024">2024</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+        <option value="2028">2028</option>
       </select>
        <div class="valid-feedback">Looks good!</div>
     </div>

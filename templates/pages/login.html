@@ -21,31 +21,43 @@
         <span class="back-btn"><a href="{% url 'index' %}"><img src="{% static 'Images/back.png' %}" alt="BAck"></a></span>
         <h4 class="title-back">Findem</h4>
     </div>
+    <!--Alerts-->
+    {% include 'partials/_alerts.html' %}
     <h5 class="loginSignup">Have an account ? Log In</h5>
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" novalidate action="{% url 'login' %}", method="POST">
+      {% csrf_token %}
       <div class="form-group">
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required >
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email" aria-describedby="emailHelp" placeholder="Enter email" required >
         <div class="invalid-feedback">Please enter your valid email</div>
         <small id="emailHelp" class="form-text text-muted">Your email is safe with us</small>
       </div>
 
       <div class="form-group">
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required>
         <div class="invalid-feedback">Please enter your password</div>
+        <a href="###" id="fgtpwd" style="color:#555" mt-2>Forgot passoword?</a>
       </div>
+      
       <button type="submit" class="btn btn-success" id="loginButton">Log In</button>
     </form> 
 
-  <div id="signUpPrompt"><h6>Don't have an account ?</h6><a id="singUpLink" href="SignUp.html">Sign Up</a>
+  <div id="signUpPrompt"><h6>Don't have an account ?</h6><a id="singUpLink" href="{% url 'signup' %}">Sign Up</a>
   </div>
 
   <hr>
 
   <!--Google Login-->
   <div class="social-media-signin">
-    <a href="###" class="google social-btn" >
+    <a href="{% url 'social:begin' 'google-oauth2' %}" class="google social-btn" >
           <i class="fa fa-google fa-fw"></i><span id="google-btn">Login with Google</span>
     </a>
+  </div>
+
+  <!--Facebook Login-->
+  <div class="social-media-signin">
+      <a href="{% url 'social:begin' 'facebook' %}" class="facebook social-btn" >
+            <i class="fa fa-facebook fa-fw"></i><span id="google-btn">Login with Facebook</span>
+      </a>
   </div>
   
   </div>
