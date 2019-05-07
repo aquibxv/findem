@@ -18,6 +18,7 @@
     <title>Findem | Search</title>
 
     <style>
+     
     </style>
 </head>
 <body>
@@ -41,36 +42,45 @@
     </nav>
 
     <!--Search Box-->
-    <section class="search-box">
+    <section class="search-box" style="background: url('{% static 'Images/Search-banner4.jpeg' %}');background-position:left -55px top -30px;">
   <div class="container">
       <div class="row">
           <div class="col-md-12">
-              <form action="Search.html" autocomplete="off">
+              <form action="{% url 'search' %}" autocomplete="off">
                   <!--Form Row 1-->
                   <div class="form-row">
                           <!--College Name-->
                           <div class="col-md-5 mb-3">
                               <div class="autocomplete">
-                                  <input type="text" class="form-control" id="college-input" placeholder="College Name">
+                                  <input type="text" class="form-control" id="college-input" name="college" 
+                                  placeholder="College Name" value="{{ values.college }}">
                               </div>
                           </div>
 
-                          <!--Releveant Skills-->
+                          <!-- Releveant Skills -->
                           <div class="col-md-4 mb-3">
+                                <div class="autocomplete">
+                                    <input type="search" class="form-control" id="skill" name="skill"
+                                    value="{{ values.skill }}" placeholder="Relevant Skills">
+                                </div>
+                          </div>
+                          
+                            <!-- Releveant Skills
+                            <div class="col-md-4 mb-3">
                                 <div class="autocomplete">
                                     <input type="text" class="form-control" id="skill-input" placeholder="Relevant Skills">
                                 </div>
-                            </div>
-                          
+                            </div> -->
 
                           <!--UserName-->
                           <div class="col-md-3 mb-3"> 
-                              <input type="text" class="form-control" id="name-input" placeholder="Name">
+                              <input type="text" class="form-control" id="name-input" name="name"
+                               placeholder="Name" value="{{ values.name }}">
                           </div>
 
                   </div>
                   <div class="form-row">
-                      <button class="btn btn-success btn-block mt-2 mb-2">Search</button>
+                      <button type="submit" class="btn btn-success btn-block mt-2 mb-2">Search</button>
                   </div>
               </form>
           </div>
@@ -80,289 +90,120 @@
 
     <!-- Listings -->
     <section id="listings" class="py-5">
-            <div>
-                <h3 style="text-align:center">Search Result for "Web Developer"</h3>
-            </div>
             <br>
         <div class="container">
             <div class="row">
-
-            <!-- Listing 1 -->
-            <div class="col-md-6 col-lg-4 mb-4">
-                    <div class="card listing-preview">
-                        <img class="card-img-top mt-3" src="{% static 'Images/Founder.gif' %}" style="width:60%; margin-left:auto;margin-right:auto;" alt="">
-                        <div class="card-body">
-                        <div class="listing-heading text-center">
-                            <h6 class="display-4" style="font-size:2rem; font-weight:20px;">Aquib Ansari</h6>
-                            <p>
-                            I beliveve in creation i use technoogy as my tools
-                            </p>
-                        </div>
-        
-                        <hr style="margin:0px; padding:0px;">
-        
-                        <div class="row py-2 ">
-                            <div class="col-sm-12">
-                            <i class="fas fa-university float-left fa-2x text-secondary"></i>
-                            <h6 class="ml-5">Anil neerukonda Institute of technology and sciences</h6>
+                {% if profiles %}
+                    {% for profile in profiles %}
+                        <div class="col-md-6 col-lg-4 mb-4">
+                        <div class="card listing-preview">
+                            <img class="card-img-top mt-3" src= "{{ profile.profile_picture.url }}" style="width:60%; margin-left:auto;margin-right:auto;" alt="">
+                            <div class="card-body">
+                            <div class="listing-heading text-center">
+                                <h6 class="display-4" style="font-size:2rem; font-weight:20px;">{{ profile.name }}</h6>
+                                <!-- <p>
+                                I beliveve in creation i use technoogy as my tools
+                                </p> -->
+                            </div>
+            
+                            <hr style="margin:0px; padding:0px;">
+            
+                            <div class="row py-2 ">
+                                <div class="col-sm-12">
+                                <i class="fas fa-university float-left fa-2x text-secondary"></i>
+                                <h6 class="ml-5">{{ profile.college_name }}</h6>
+                                </div>
+                            </div>
+            
+                            <table>
+                                <tr>
+                                    <td> <i class="fas fa-award float-left fa-2x text-secondary mr-3"></i> </td>
+                                    <td>
+                                    <h6 class="float-left mr-2">&#9679;{{ profile.skill_1 }}</h6> 
+                                    <!-- {% if profile.skill_2 %} -->
+                                    <h6 class="float-left mr-2">&#9679;{{ profile.skill_2}}</h6> 
+                                    <!-- {% endif %} -->
+                                    <!-- {% if profile.skill_3 %} -->
+                                    <h6 class="float-left mr-2">&#9679;{{ profile.skill_3 }}</h6>
+                                    <!-- {% endif %} -->
+                                    <!-- {% if profile.skill_4 %} -->
+                                    <h6 class="float-left mr-2">&#9679;{{ profile.skill_4 }}</h6>
+                                    <!-- {% endif %} -->
+                                    <!-- {% if profile.skill_5 %} -->
+                                    <h6 class="float-left mr-2">&#9679;{{ profile.skill_5 }}</h6>
+                                    <!-- {% endif %}  -->
+                                    <!-- {% if profile.skill_6 %} -->
+                                    <h6 class="float-left mr-2">&#9679;{{ profile.skill_6 }}</h6>
+                                    <!-- {% endif %} -->
+                                    </td>
+                                </tr>
+                                </table>
+            
+                            <hr style="margin-top:0px ; padding:0px;">
+                            <a href="User-Profile.html" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle mr-2"></i>View profile</a>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake mr-1"></i>Connect</a>  
+                                </div>
+                                <div class="col-sm-6">
+                                    <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>
+                                </div>
+                            </div>
                             </div>
                         </div>
+                       </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-md-12">
+                        <p>No Profile available!</p>
+                    </div>
+                {% endif %}
+
+            </div>
+
+            <center>
+                 <!--Pagination-->
+            <div class="row">
+                    <div class="col-md-6">
+                      {% if profiles.has_other_pages %}
+                      <ul class="pagination">
+            
+                        {% if profiles.has_previous %}
+                          <li class="page-item">
+                            <a href="?page={{profiles.previous_page_number}}" class="page-link">&laquo;</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled"></li>    
+                            <a class="page-link">&laquo;</a>
+                        {% endif %}
+            
+                        {% for i in profiles.paginator.page_range %}
+                          {% if profiles.number == i %}
+                            <li class="page-item active">
+                              <a class="page-link">{{i}}</a>
+                            </li>
+                          {% else %}
+                            <li class="page-item">
+                              <a href="?page={{i}}" class="page-link">{{i}}</a>
+                            </li>
+                          {% endif %}
+                        {% endfor%}
+                        
+                        {% if profiles.has_next %}
+                          <li class="page-item">
+                            <a href="?page={{profiles.next_page_number}}" class="page-link">&raquo;</a>
+                          </li>
+                        {% else %}
+                          <li class="page-item disabled"></li>    
+                            <a class="page-link">&raquo;</a>
+                        {% endif %}
+                      </ul>
+                      {% endif %}
+                    </div>
         
-                        <table>
-                            <tr>
-                                <td> <i class="fas fa-award float-left fa-2x text-secondary mr-3"></i> </td>
-                                <td>
-                                <h6 class="float-left mr-2">&#9679;Django</h6> 
-                                <h6 class="float-left mr-2">&#9679;Python</h6> 
-                                <h6 class="float-left mr-2">&#9679;Bootstrap</h6> 
-                                </td>
-                            </tr>
-                            </table>
-        
-                        <hr style="margin-top:0px ; padding:0px;">
-                        <a href="User-Profile.html" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle mr-2"></i>View profile</a>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake mr-1"></i>Collaborate</a>  
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>
-                            </div>
-                        </div>
-                        </div>
                     </div>
-            </div>
+            </center>
 
-            <!-- Listing 1 -->
-            <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-                <img class="card-img-top mt-3" src="{% static 'Images/Founder.gif' %}" style="width:60%; margin-left:auto;margin-right:auto;" alt="">
-                <div class="card-body">
-                <div class="listing-heading text-center">
-                    <h6 class="display-4" style="font-size:2rem; font-weight:20px;">Aquib Ansari</h6>
-                    <p>
-                    I beliveve in creation i use technoogy as my tools
-                    </p>
-                </div>
-
-                <hr style="margin:0px; padding:0px;">
-
-                <div class="row py-2 ">
-                    <div class="col-sm-12">
-                    <i class="fas fa-university float-left fa-2x text-secondary"></i>
-                    <h6 class="ml-5">Anil neerukonda Institute of technology and sciences</h6>
-                    </div>
-                </div>
-
-                <table>
-                    <tr>
-                        <td> <i class="fas fa-award float-left fa-2x text-secondary mr-3"></i> </td>
-                        <td>
-                        <h6 class="float-left mr-2">&#9679;Django</h6> 
-                        <h6 class="float-left mr-2">&#9679;Python</h6> 
-                        <h6 class="float-left mr-2">&#9679;Bootstrap</h6> 
-                        </td>
-                    </tr>
-                    </table>
-
-                <hr style="margin-top:0px ; padding:0px;">
-                <a href="User-Profile.html" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle"></i>View profile</a>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake"></i>Collaborate</a>  
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>  
-
-            <!-- Listing 1 -->
-            <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-                <img class="card-img-top mt-3" src="{% static 'Images/Founder.gif' %}" style="width:60%; margin-left:auto;margin-right:auto;" alt="">
-                <div class="card-body">
-                <div class="listing-heading text-center">
-                    <h6 class="display-4" style="font-size:2rem; font-weight:20px;">Aquib Ansari</h6>
-                    <p>
-                    I beliveve in creation i use technoogy as my tools
-                    </p>
-                </div>
-
-                <hr style="margin:0px; padding:0px;">
-
-                <div class="row py-2 ">
-                    <div class="col-sm-12">
-                    <i class="fas fa-university float-left fa-2x text-secondary"></i>
-                    <h6 class="ml-5">Anil neerukonda Institute of technology and sciences</h6>
-                    </div>
-                </div>
-
-                <table>
-                    <tr>
-                        <td> <i class="fas fa-award float-left fa-2x text-secondary mr-3"></i> </td>
-                        <td>
-                        <h6 class="float-left mr-2">&#9679;Django</h6> 
-                        <h6 class="float-left mr-2">&#9679;Python</h6> 
-                        <h6 class="float-left mr-2">&#9679;Bootstrap</h6> 
-                        </td>
-                    </tr>
-                    </table>
-
-                <hr style="margin-top:0px ; padding:0px;">
-                <a href="User-Profile.html" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle"></i>View profile</a>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake"></i>Collaborate</a>  
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            <!-- Listing 1 -->
-            <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-                <img class="card-img-top mt-3" src="{% static 'Images/Founder.gif' %}" style="width:60%; margin-left:auto;margin-right:auto;" alt="">
-                <div class="card-body">
-                <div class="listing-heading text-center">
-                    <h6 class="display-4" style="font-size:2rem; font-weight:20px;">Aquib Ansari</h6>
-                    <p>
-                    I beliveve in creation i use technoogy as my tools
-                    </p>
-                </div>
-
-                <hr style="margin:0px; padding:0px;">
-
-                <div class="row py-2 ">
-                    <div class="col-sm-12">
-                    <i class="fas fa-university float-left fa-2x text-secondary"></i>
-                    <h6 class="ml-5">Anil neerukonda Institute of technology and sciences</h6>
-                    </div>
-                </div>
-
-                <table>
-                    <tr>
-                        <td> <i class="fas fa-award float-left fa-2x text-secondary mr-3"></i> </td>
-                        <td>
-                        <h6 class="float-left mr-2">&#9679;Django</h6> 
-                        <h6 class="float-left mr-2">&#9679;Python</h6> 
-                        <h6 class="float-left mr-2">&#9679;Bootstrap</h6> 
-                        </td>
-                    </tr>
-                    </table>
-
-                <hr style="margin-top:0px ; padding:0px;">
-                <a href="User-Profile.html" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle"></i>View profile</a>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake"></i>Collaborate</a>  
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            <!-- Listing 1 -->
-            <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-                <img class="card-img-top mt-3" src="{% static 'Images/Founder.gif' %}" style="width:60%; margin-left:auto;margin-right:auto;" alt="">
-                <div class="card-body">
-                <div class="listing-heading text-center">
-                    <h6 class="display-4" style="font-size:2rem; font-weight:20px;">Aquib Ansari</h6>
-                    <p>
-                    I beliveve in creation i use technoogy as my tools
-                    </p>
-                </div>
-
-                <hr style="margin:0px; padding:0px;">
-
-                <div class="row py-2 ">
-                    <div class="col-sm-12">
-                    <i class="fas fa-university float-left fa-2x text-secondary"></i>
-                    <h6 class="ml-5">Anil neerukonda Institute of technology and sciences</h6>
-                    </div>
-                </div>
-
-                <table>
-                    <tr>
-                        <td> <i class="fas fa-award float-left fa-2x text-secondary mr-3"></i> </td>
-                        <td>
-                        <h6 class="float-left mr-2">&#9679;Django</h6> 
-                        <h6 class="float-left mr-2">&#9679;Python</h6> 
-                        <h6 class="float-left mr-2">&#9679;Bootstrap</h6> 
-                        </td>
-                    </tr>
-                    </table>
-
-                <hr style="margin-top:0px ; padding:0px;">
-                <a href="User-Profile.html" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle"></i>View profile</a>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake"></i>Collaborate</a>  
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-
-            <!-- Listing 1 -->
-            <div class="col-md-6 col-lg-4 mb-4">
-            <div class="card listing-preview">
-                <img class="card-img-top mt-3" src="{% static 'Images/Founder.gif' %}" style="width:60%; margin-left:auto;margin-right:auto;" alt="">
-                <div class="card-body">
-                <div class="listing-heading text-center">
-                    <h6 class="display-4" style="font-size:2rem; font-weight:20px;">Aquib Ansari</h6>
-                    <p>
-                    I beliveve in creation i use technoogy as my tools
-                    </p>
-                </div>
-
-                <hr style="margin:0px; padding:0px;">
-
-                <div class="row py-2 ">
-                    <div class="col-sm-12">
-                    <i class="fas fa-university float-left fa-2x text-secondary"></i>
-                    <h6 class="ml-5">Anil neerukonda Institute of technology and sciences</h6>
-                    </div>
-                </div>
-
-                <table>
-                    <tr>
-                        <td> <i class="fas fa-award float-left fa-2x text-secondary mr-3"></i> </td>
-                        <td>
-                        <h6 class="float-left mr-2">&#9679;Django</h6> 
-                        <h6 class="float-left mr-2">&#9679;Python</h6> 
-                        <h6 class="float-left mr-2">&#9679;Bootstrap</h6> 
-                        </td>
-                    </tr>
-                    </table>
-
-                <hr style="margin-top:0px ; padding:0px;">
-                <a href="User-Profile.html" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle"></i>View profile</a>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake"></i>Collaborate</a>  
-                    </div>
-                    <div class="col-sm-6">
-                        <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>
-                    </div>
-                </div>
-                </div>
-            </div>
-            </div>
-            </div>
         </div>
     </section>
 

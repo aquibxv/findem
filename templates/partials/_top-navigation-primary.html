@@ -8,14 +8,17 @@
       </button>
       
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <form class="form-inline my-2 my-lg-0" autocomplete="off" 
+          <form class="form-inline my-2 my-lg-0" autocomplete="off" action="{% url 'search' %}"
           {% if 'profile' in request.path %}
             style="display:none;"
           {% endif %}
           >
             <div class="autocomplete">
-              <input class="form-control mr-2"  id="skill-input"  type="search" placeholder="Looking for ?" aria-label="Search" style="width:300px">
-              <a class="btn btn-outline-light my-2 my-sm-0" type="button submit" href="{% url 'search'%}">Search</a>    
+              <input class="form-control mr-2"  id="skill-input" name='skill'  type="search" placeholder="Looking for ?"
+              aria-label="Search" style="width:300px" required 
+              oninvalid="this.setCustomValidity('Enter a skill here (for example- iOS Developer')"
+              oninput="this.setCustomValidity('')">
+              <button class="btn btn-outline-light my-2 my-sm-0" >Search</button>  
             </div>
           </form>
       </div>

@@ -47,9 +47,16 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
+    'elasticsearch_dsl',
 ]
 
 SITE_ID = 1
+
+ELASTICSEARCH_DSL = {
+    'default' : {
+        'hosts' : 'localhost:9200'
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -115,4 +115,4 @@ function autocomplete(inp, arr) {
   ];
   /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
   autocomplete(document.getElementById("college-input"), colleges);
-  autocomplete(document.getElementById("skill-input"), skillList);
+  autocomplete(document.getElementById("skill"), skillList);

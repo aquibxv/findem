@@ -1,14 +1,52 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages, auth
+from datetime import datetime
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Q
 from profiles.models import UserProfile
 from django.contrib.auth.decorators import login_required
+from .models import UserProfile
+
 
 # Create your views here.
 def search(request):
     """View for implementing searching profile functionality """
 
-    return render(request, 'profiles/search.html')
+    profiles = UserProfile.objects.order_by('-join_date')
+
+    # Skill
+    if 'skill' in request.GET:
+        skill = request.GET['skill']
+        if skill:
+            profiles = UserProfile.objects.filter(Q(skill_1__icontains=skill) | Q(skill_2__icontains=skill) |
+            Q(skill_3__icontains=skill) | Q(skill_4__icontains=skill) | Q(skill_5__icontains=skill) |
+            Q(skill_6__icontains=skill))
+
+    # College
+    if 'college' in request.GET:
+        college = request.GET['college']
+        if college:
+            profiles = profiles.filter(college_name__icontains=college)
+
+    # Name
+    if 'name' in request.GET:
+        name = request.GET['name']
+        if name:
+            profiles = profiles.filter(name__icontains=name)
+
+    # Pagination
+    paginator = Paginator(profiles, 6)
+    page = request.GET.get('page')
+    paged_profiles = paginator.get_page(page)
+
+    # context dictionary
+    context = {
+        'profiles' : paged_profiles,
+        'values' : request.GET
+    }
+
+    return render(request, 'profiles/search.html', context)
 
 def profile(request):
     """View for returning a unique profile"""
@@ -52,6 +90,7 @@ def signup(request):
         skill_4 = request.POST.get('upload_skill4', '')
         skill_5 = request.POST.get('upload_skill5', '')
         skill_6 = request.POST.get('upload_skill6', '')
+        join_date = datetime.now
 
         # Check Username
         if UserProfile.objects.filter(name=name).exists():
@@ -67,7 +106,7 @@ def signup(request):
                 user = UserProfile.objects.create_user(profile_picture=profile_picture, name=name, email=email, 
                 password=password, highest_degree_earned=highest_degree_earned, college_name=college_name, 
                 graduation_year=graduation_year, skill_1=skill_1, skill_2=skill_2, skill_3=skill_3, skill_4=skill_4,
-                skill_5=skill_5, skill_6=skill_6)
+                skill_5=skill_5, skill_6=skill_6, join_date=join_date)
 
                 # #Login after register
                 # auth.login(request, user)

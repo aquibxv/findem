@@ -1,14 +1,16 @@
 from django.db import models
+from datetime import datetime
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import BaseUserManager
+from .documents import ProfileIndex
 
 # Create your models here.
 class UserProfileManager(BaseUserManager):
     """Helps Django work with our custom user model.""" 
 
     def create_user(self, email, name, profile_picture, highest_degree_earned, 
-                    college_name ,graduation_year, skill_1, skill_2, skill_3, skill_4, skill_5, skill_6, password=None):
+                    college_name ,graduation_year, skill_1, skill_2, skill_3, skill_4, skill_5, skill_6, join_date, password=None):
         """Creates a new user profile object."""
         if not email:  
             raise ValueError("Uers must have an email address")
@@ -18,7 +20,7 @@ class UserProfileManager(BaseUserManager):
 
         user = self.model(email=email, name=name, profile_picture=profile_picture, highest_degree_earned=highest_degree_earned,
                 college_name=college_name, graduation_year=graduation_year, skill_1=skill_1, skill_2=skill_2,
-                skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6)
+                skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6, join_date=join_date)
 
         # hashes the given password and then saves it
         user.set_password(password)
@@ -55,6 +57,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     skill_4 = models.CharField(max_length=20, blank=True)
     skill_5 = models.CharField(max_length=20, blank=True)
     skill_6 = models.CharField(max_length=20, blank=True)
+    join_date = models.DateTimeField(default = datetime.now, blank=True)
 
     objects = UserProfileManager()
 
@@ -67,6 +70,23 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         """Django uses this to convert an object to a string"""
         return self.email
+
+    def indexing(self):
+        obj = ProfileIndex(
+            college_name=self.college_name,
+            name=self.name,
+            skill_1=self.skill_1,
+            skill_2=self.skill_2,
+            skill_3=self.skill_3,
+            skill_4=self.skill_4,
+            skill_5=self.skill_5,
+            skill_6=self.skill_6,
+        )
+
+        obj.save()
+        return obj.to_dict(include_meta=True)
+
+
 
 class PersonalInformation(models.Model):
     """Represents a user's personal Infromation inside our system"""
