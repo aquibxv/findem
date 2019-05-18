@@ -1,7 +1,7 @@
 from django.urls import path, include
 from . import views
 
-# url - 'profile/'
+# url - 'profiles/'
 urlpatterns = [
     path('search', views.search, name='search'),
     path('<int:profile_id>', views.profile, name='profile'),

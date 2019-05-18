@@ -1,1 +1,295 @@
-<h1>Profile</h1>
+{% load static %}
+<!DOCTYPE html>
+<html>
+<title>Profile | Findem</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_UserProfile.css'  %}">   
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.center-text {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+</style>
+<body class="w3-light-grey">
+
+<!-- Top Navigatin bar -->
+{% include 'partials/_top-navigation-primary.html' %}
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1200px;">
+
+  <!--Link to navigate back to search results-->
+  <a href="{% url 'search' %}" class="btn  btn-outline-success mb-4 ml-3"><i class="fas fa-angle-left mr-2"></i>back to search results</a>
+  <!-- The Grid -->
+  <div class="w3-row-padding">
+    <!-- Left Column -->
+    <div class="w3-third">
+    
+      <div class="w3-white w3-text-grey w3-card-4">
+        <div class="w3-display-container">
+         <div >
+            <img src="{{ profile.profile_picture.url }}" class="center p-2" alt="Avatar" id="user-profile">
+         </div>
+        </div>
+        <br>
+        <!--Name + Bio + Deatails-->
+        <div class="container">
+           <div class="center-text">
+             <!--Name-->
+            <h2  class="" style="font-weight:lighter; color:#333">{{ profile.name }}</h2>
+            <!--Bio-->
+            {% if personal_info.bio %}
+              <p>{{ personal_info.bio }}</p>
+            {% endif %}
+           </div>
+          <hr>
+          <!--Details-->
+          <div style="color:rgb(51, 47, 47);">
+            {% if location %}
+            <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ location.city }}, {{ location.state }}, {{ location.country }}</p>
+            {% endif %}
+            <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ profile.email }}</p>
+            <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>{{ personal_info.mobile }}</p>   
+          </div>
+           <hr>
+
+          <p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-text-teal mr-2"></i>Skills</b></p>
+          <!--Table for skills Display-->
+          <table style="width:70%; color:rgb(51, 47, 47);" >
+            <!--Skill rows-->
+            {% if profile.skill_1 %}
+              <tr >
+                <td class="mb-5">
+                  <h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>{{ profile.skill_1 }}</h6></td>
+                <!-- <td><h6>-</h6></td>
+                <td class="mb-5"><h6>Highly Skilled</h6></td> -->
+              </tr>
+            {% endif %}
+            {% if profile.skill_1 %}
+              <tr >
+                  <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
+                    {{ profile.skill_2 }}</h6></td>
+                  <!-- <td><h6>-</h6></td>
+                  <td class="mb-5"><h6>Intermediate</h6></td> -->
+              </tr>
+              {% endif %}
+            {% if profile.skill_3 %}
+              <tr >
+                  <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
+                    {{ profile.skill_3 }}</h6></td>
+                  <!-- <td><h6>-</h6></td>
+                  <td class="mb-5"><h6>Highly Skilled</h6></td> -->
+              </tr>
+              {% endif %}
+            {% if profile.skill_4 %}
+               <tr >
+                <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
+                  {{ profile.skill_4 }}</h6></td>
+                <!-- <td><h6>-</h6></td>
+                <td class="mb-5"><h6>Beginner!</h6></td> -->
+               </tr>
+            {% endif %}
+            {% if profile.skill_5 %}
+              <tr >
+                  <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
+                    {{ profile.skill_5 }}</h6></td>
+                  <!-- <td><h6>-</h6></td>
+                  <td class="mb-5"><h6>Beginner!</h6></td> -->
+              </tr>
+              {% endif %}
+            {% if profile.skill_6 %}
+              <tr >
+                  <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
+                    {{ profile.skill_6 }}</h6></td>
+                  <!-- <td><h6>-</h6></td>
+                  <td class="mb-5"><h6>Beginner!</h6></td> -->
+              </tr>
+            {% endif %}
+          </table>
+          <hr>
+
+          <!--P for languages known-->
+          <p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-text-teal mr-2"></i>Languages</b></p>
+          <div style="color:rgb(51, 47, 47);"">
+            <p>{{ personal_info.language_1 }}</p>
+            <p>{{ personal_info.language_2 }}</p>
+            <p>{{ personal_info.language_3 }}</p>
+          </div>
+          <br>
+        </div>
+      </div><br>
+
+    <!-- End Left Column -->
+    </div>
+
+    <!-- Right Column -->
+    <div class="w3-twothird">
+    
+      {% if work_exp %}
+      <!--Work Experinece-->
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16">
+        <i style="color:rgb(17, 151, 140)" class="fas fa-briefcase mr-2"></i>Work Experience</h2>
+       
+       <!--Work experinece block-->
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>{{ work_exp.title }}/ {{ work_exp.company }}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ work_exp.from_date }}<span class="w3-tag w3-teal w3-round">{{ work_exp.to_date }}</span></h6>
+          <p>{{ work_exp.description }}</p>
+          <hr>
+        </div>
+      
+      </div>
+      {% endif %}
+
+      {% if accomplishment %}
+      <!--Projects/Achievements-->
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey w3-padding-16">
+          <i style="color:rgb(17, 151, 140)"  class="fab fa-font-awesome-alt "></i>
+          Projects</h2>
+
+          <!--Project section-->
+          <div class="w3-container">
+            <h5 class="w3-opacity"><b>{{ accomplishment.project_title }}</b></h5>
+            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ accomplishment.from_date }} - {{ accomplishment.to_date }}</h6>
+            <p>{{ accomplishment.project_description }}</p>
+          </div>
+          
+          <!-- <h2 class="w3-text-grey w3-padding-16">
+              <i style="color:rgb(17, 151, 140)"  class="fab fa-font-awesome-alt "></i>
+              Test Score</h2> -->
+
+<!-- 
+          Test Score section
+          <div class="w3-container">
+            <h5 class="w3-opacity"><b>{{ accomplishment.test_score }}</b></h5>
+            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ accomplishment.test_date }}</h6>
+            <p>{{ accomplishment.test_description }}</p>
+            <hr>
+          </div> -->
+        
+      </div>
+      {% endif %}
+
+      <!--Social Presence-->
+      {% if socialhandle %}
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+            <h2 class="w3-text-grey w3-padding-16">
+            <i style="color:rgb(17, 151, 140)"  class="fas fa-1x fa-globe-americas mr-2"></i>Social Presence</h2>
+            <!--Facebook-->
+            <div class="w3-container">
+                <!--Facebook-->
+                {% if socialhandle.facebook %}
+                <a href="{{ socialhandle.facebook }}">
+                    <i style="color:rgb(7, 7, 187)" class="fab fa-facebook fa-3x mr-3"></i>
+                </a>
+                {% endif %}
+                 <!--Linkedin-->
+                {% if socialhandle.linkedin %}
+                <a href="{{ socialhandle.linkedin }}">
+                    <i style="color:rgb(0, 13, 128)" class="fab fa-linkedin fa-3x mr-3"></i>
+                </a>
+                {% endif %}
+                <!--Twitter-->
+                {% if socialhandle.twitter %}
+                <a href="{{ socialhandle.twitter }}">
+                    <i style="color:rgb(0, 162, 255)" class="fab fa-twitter fa-3x mr-3"></i>
+                </a>
+                {% endif %}
+                 <!--Instagram-->
+                 {% if socialhandle.instagram %}
+                <a href="{{ socialhandle.instagram }}">
+                    <i style="color:rgb(150, 20, 150)" class="fab fa-instagram fa-3x mr-3"></i>
+                </a>
+                {% endif %}
+                 <!--Youtube-->
+                 {% if socialhandle.youtube %}
+                 <a href="{{ socialhandle.youtube }}">
+                    <i style="color:red" class="fab fa-youtube fa-3x mr-3"></i>
+                 </a>
+                 {% endif %}
+                <!--HackerRank-->
+                {% if socialhandle.hackerRank %}
+                <a href="{{ socialhandle.hackerRank }}">
+                    <i style="color:rgb(14, 201, 14)" class="fab fa-hackerrank fa-3x mr-3"></i>
+                </a>
+                {% endif %}
+                <!--Github-->
+                {% if socialhandle.github %}
+                <a href="{{ socialhandle.github }}">
+                    <i style="color:#111" class="fab fa-github fa-3x mr-3"></i> 
+                </a>
+                {% endif %}
+                <!--Medium-->
+                {% if socialhandle.medium %}
+                <a href="{{ socialhandle.medium }}">
+                    <i style="color:#111" class="fab fa-medium fa-3x mr-3"></i>
+                </a>
+                {% endif %}
+                <!--Quora-->
+                {% if socialhandle.quora %}
+                <a href="{{ socialhandle.quora }}">
+                    <i style="color:rgb(173, 5, 5)" class="fab fa-quora fa-3x"></i>
+                </a>
+                {% endif %} 
+            </div>
+            <br>
+      </div>
+      {% endif %}
+
+
+      <!--Education-->
+      <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16">
+        <i style="color:rgb(17, 151, 140)" class="fas fa-university float-left mr-2" ></i>
+        Education</h2>
+       
+        <!--College/Institution-->
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>{{ personal_info.college_university }}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Expected - {{ personal_info.to_date }}</h6>
+          <p class="m-0 p-0">{{ personal_info.course }}</p>
+          <p class="m-0 p-0"><b>{{ personal_info.branch }}</b></p>
+          <br>
+        </div>
+
+        <!-- School
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>Kendriya Vidyalaya Malkapuram</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2011 - 2013</h6>
+          <p>Intermediate</p><br>
+        </div> -->
+      </div>
+
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+  <!-- End Page Container -->
+</div>
+
+<!--Footer-->
+{% include 'partials/_footer.html' %}
+
+</body>
+</html>

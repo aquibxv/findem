@@ -9,7 +9,7 @@
       
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <form class="form-inline my-2 my-lg-0" autocomplete="off" action="{% url 'search' %}"
-          {% if 'profile' in request.path %}
+          {% if 'search' in request.path %}
             style="display:none;"
           {% endif %}
           >
@@ -27,8 +27,10 @@
       <!--Top right navigation bar-->
       <div class="d-flex justify-content-end">
 
+        {% if user.is_authenticated %}     
           <!--Options for logged user-->
-          <nav class="navbar bg-success justify-content-end" style="display:none">
+          <nav class="navbar bg-success justify-content-end" 
+          style="display : block">
           <ul class="navbar-nav mr-auto ">
   
             <li class="nav-item">
@@ -38,32 +40,40 @@
                 <div class="dropdown">
                   <a class="nav-link dropdown-toggle" id="navbar-user" href="###" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span class="sr-only">(current)</span>
-                      <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                      <img src="{{ user.profile_picture.url }}" alt="User-Image" id="user-profile">
                   </a>
   
                   <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                      <h6 class="dropdown-header">Jhon Doe</h6>
+                      <h6 class="dropdown-header">{{ user.name }}</h6>
                       <a class="dropdown-item" href="#">Account</a>
                       <a class="dropdown-item" href="#">Settings</a>
+                      <a class="dropdown-item" href="#">Feedback</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Logout</a>
+                      <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                   </div>
                 </div>           
             </li>
           </ul>
           </nav>
+        
+        {% else %}
+        <!--Options for Non-logged user-->
+        <nav class="navbar bg-success justify-content-end">
+          <ul class="navbar-nav mr-auto ">
+            <li class="nav-item">
+             <a class="nav-link" id="navbar-login-signup" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+             <a class="nav-link" id="navbar-login-signup" href="{% url 'signup' %}">SignUp</a>
+            </li>
+          </ul>
+        </nav>
 
-          <!--Options for Non-logged user-->
-          <nav class="navbar bg-success justify-content-end">
-            <ul class="navbar-nav mr-auto ">
-              <li class="nav-item">
-               <a class="nav-link" id="navbar-login-signup" href="{% url 'login' %}">Login</a>
-              </li>
-              <li class="nav-item">
-               <a class="nav-link" id="navbar-login-signup" href="{% url 'signup' %}">SignUp</a>
-              </li>
-            </ul>
-          </nav>
+        {% endif %}
+
+          
       </div>
+
+
     </div>
 </nav>

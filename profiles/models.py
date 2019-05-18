@@ -92,11 +92,20 @@ class PersonalInformation(models.Model):
     """Represents a user's personal Infromation inside our system"""
 
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    mobile = models.CharField(max_length=10 ,blank=True)
+    bio = models.TextField(max_length=200, blank=True)
     college_university = models.CharField(max_length=100, blank=False)
     course = models.CharField(max_length=100, blank=False)
+    language_1 = models.CharField(max_length=100, blank=True)
+    language_2 = models.CharField(max_length=100, blank=True)
+    language_3 = models.CharField(max_length=100, blank=True)
     branch = models.CharField(max_length=100, blank=False)
-    from_date = models.DateTimeField(blank=False)
-    to_date = models.DateTimeField(blank=False)
+    to_date = models.DateField(blank=False)
+   
+
+    def __str__(self):
+        """Django uses this to convert an object to a string"""
+        return self.college_university
 
 class SocialPlatform(models.Model):
     """ Attaches all the Social Platform to a user """
@@ -113,17 +122,48 @@ class SocialPlatform(models.Model):
     medium = models.URLField(blank=True, default='')
     quora = models.URLField(blank=True, default='')
 
+    def __str__(self):
+        """Django uses this to convert an object to a string"""
+        return self.facebook
+
 class Accomplishments(models.Model):
     """Represent's a users accomplishment's inside our system"""
 
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     project_title = models.CharField(max_length=200, blank=True, default='')
     project_description = models.TextField(blank=True, default='')
-    from_date = models.DateTimeField(blank=True)
-    to_date = models.DateTimeField(blank=True)
-    test_score = models.CharField(max_length=100, blank=True)
-    test_description = models.TextField(blank=True)
-    test_date = models.DateTimeField(blank=True)
+    from_date = models.DateField(blank=True)
+    to_date = models.DateField(blank=True)
+    # test_score = models.CharField(max_length=100, blank=True)
+    # test_description = models.TextField(blank=True)
+    # test_date = models.DateField(blank=True)
 
+    def __str__(self):
+        """Django uses this to convert an object to a string"""
+        return self.project_title
 
+class WorkExperience(models.Model):
+    """Represents a users work experience details in out system"""
 
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+    company = models.CharField(max_length=100)
+    from_date = models.DateField(blank=True, default=None)
+    to_date = models.DateField(blank=True, default=None)
+    description = models.TextField(blank=True, default=' ')
+
+    def __str__(self):
+        """Django uses this to convert an object to a string"""
+        return self.title
+
+class Location(models.Model):
+    """Reperesents a users location details in our system"""
+
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    country = models.CharField(max_length=200, blank=True)
+    State = models.CharField(max_length=200, blank=True)
+    city = models.CharField(max_length=200, blank=True)
+
+    def __str__(self):
+        """Django uses this to convert an object to a string"""
+        return self.city
