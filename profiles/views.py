@@ -8,7 +8,7 @@ from django.db.models import Q
 from profiles.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, PersonalInformation, SocialPlatform, Accomplishments, Location, WorkExperience
-
+from projects.models import Project
 
 # Create your views here.
 def search(request):
@@ -118,7 +118,6 @@ def login(request):
             except ObjectDoesNotExist:
                 personal_info = None
 
-            request.session['bio'] = personal_info.bio
             return redirect('dashboard')
         else:
             messages.error(request, 'Invalid credentials')
@@ -145,7 +144,7 @@ def signup(request):
         skill_4 = request.POST.get('upload_skill4', '')
         skill_5 = request.POST.get('upload_skill5', '')
         skill_6 = request.POST.get('upload_skill6', '')
-        join_date = datetime.now
+        join_date = datetime.now()
 
         # Check Username
         if UserProfile.objects.filter(name=name).exists():
@@ -181,4 +180,59 @@ def logout(request):
 @login_required
 def dashboard(request):
     """View for directing a user to the dashboard"""
-    return render(request, 'profile/dashboard.html')
+
+    # if request.user.is_authenticated():
+    # fetching presonal-Information
+    try:
+        personal_info = PersonalInformation.objects.get(user_id=request.user.id)
+    except ObjectDoesNotExist:
+        personal_info = None
+
+    # fetching projects
+    projects = Project.objects.filter(college__icontains=request.user.college_name
+                                     ).exclude(user_id=request.user.id
+                                     ).filter(live__contains="on")[:2]
+
+    context = {
+        'personal_info' : personal_info,
+        'projects' : projects,
+    }
+
+    return render(request, 'profile/dashboard.html', context)
+
+@login_required
+def myProjects(request):
+    """View for displaying a users projects in the system"""
+
+    projects = Project.objects.order_by('-upload_date')
+    projects = projects.filter(user_id=request.user.id)
+
+    context = {
+        'projects' : projects
+    }
+
+    return render(request, 'profile/my_project.html', context)
+
+@login_required
+def requests(request):
+    """View for displaying user's requests in the system"""
+
+    return render(request, 'profile/request.html')
+
+@login_required
+def requests_recv(request):
+    """View for displaying user's requests in the system"""
+
+    return render(request, 'profile/request_recv.html')
+
+@login_required
+def message(request):
+    """View for displaying user messages"""
+    
+    return render(request, 'profile/messages.html') 
+
+@login_required
+def browseProject(request):
+    """View for Browsing and Seraching projects inside out system"""
+
+    return render(request, 'profile/browse_project.html')

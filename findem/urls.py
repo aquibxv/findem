@@ -23,6 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
     path('profile/', include('profiles.urls')),
+    path('project/', include('projects.urls')),
+    path('contact/', include('contact.urls')),
     path('auth-social/', include('social_django.urls', namespace='social')),
     path("logout/", auth_views.LogoutView.as_view(), name='logout'),    
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

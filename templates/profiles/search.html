@@ -88,10 +88,12 @@
   </div>
     </section>
 
-    <!-- Listings -->
+    <!-- Projects  -->
     <section id="listings" class="py-5">
             <br>
         <div class="container">
+          <!--Alerts-->
+        {% include 'partials/_alerts.html' %}
             <div class="row">
                 {% if profiles %}
                     {% for profile in profiles %}
@@ -143,7 +145,11 @@
                             <a href="{% url 'profile' profile.id %}" class="btn btn-success btn-block mb-3"><i class="fas fa-info-circle mr-2"></i>View profile</a>
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <a href="listing.html" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake mr-1"></i>Connect</a>  
+                                    {% if user.is_authenticated %}
+                                      <a href="{% url 'profile_contact' profile.id user.id %}" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake mr-1"></i>Connect</a>  
+                                    {% else %}
+                                    <a href="{% url 'login' %}" class="btn btn-primary btn-block mr-2"><i class="far fa-handshake mr-1"></i>Connect</a>
+                                    {% endif %}
                                 </div>
                                 <div class="col-sm-6">
                                     <a href="listing.html" class="btn btn-primary btn-block"><i class="far fa-envelope"></i> Message</a>

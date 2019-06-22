@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'profiles.apps.ProfilesConfig',
     'pages.apps.PagesConfig',
     'projects.apps.ProjectsConfig',
+    'contact.apps.ContactConfig',
     'social_django',
     'allauth',
     'django_extensions',
@@ -148,7 +149,7 @@ STATICFILES_DIRS = [
 ]
 
 # media folder settings
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media').replace('\\', '/')
 MEDIA_URL = '/media/'
 
 # Messages

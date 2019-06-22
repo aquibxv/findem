@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <!-- Custom styles for this template -->
+    <link href="{% static 'signin.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_Dashboard.css' %}">
+	<title>Your Projects | Findem</title>
+
+</head>
+<body>
+
+  <!-- Top Navigatin bar -->
+  {% include 'partials/_top-navigation-primary.html' %}
+
+  <!--Main Navigation Bar-->
+  {% include 'partials/_main_navigation.html' %}
+  <br/>
+
+  <!-- Heading -->
+  <div class="container">
+    <h4>Your Projects</h4>
+    <hr>
+  </div>
+
+  <!--Projects Container-->
+  <div class="container mb-4">
+    <div class="row">
+
+      <!--Body-->
+      <div class="col-md-8">
+
+      <!--Your Projects-->
+        <div class="card-container">
+          <div class="card-head">
+              <h5 style="display:inline-block">Your Projects</h5>
+          </div>
+          <hr style="padding:0px;margin:0px;">
+
+          {% if projects %}
+            {% for project in projects %}
+                <!--Project card box-->
+                <div class="project-card">
+                    <div class="row">
+                    <!--Project name-->
+                    <div class="col-sm-10 project-item">
+                        <h6> <i class="fas fa-file-signature"></i> Project Title : </h6>
+                        <h6>{{ project.title }}</h6> 
+                    </div>
+                    </div>
+
+                    <!--Project Domain and Project Type-->
+                    <div class="">
+                    <h6 class="float-left mr-5"><i class="fas fa-globe-americas mr-1"></i>{{ project.domain }}</h6>
+                    <h6 ><i class="fas fa-laptop"></i> {{ project.project_type }} </h6>
+                    </div>
+                    
+                    <!--Project Description-->
+                    <div>
+                    <p>{{ project.description }}</p>
+                    </div>
+
+                    <!--Skills Requierd-->
+                    <table>
+                    <tr>
+                        <td><h6 class="mr-2"><i class="fas fa-award"></i> Skills Required : </h6></td>
+                        <td>
+                        <h6 class="float-left mr-2"> &#9642;{{ project.skill_1 }}</h6> 
+                        {% if project.skill_2 %}
+                            <h6 class="float-left mr-2"> &#9642;{{ project.skill_2 }}</h6> 
+                        {% endif %}
+                        {% if project.skill_3 %}
+                        <h6 class="float-left mr-2"> &#9642;{{ project.skill_3 }}</h6> 
+                        {% endif %}
+                        {% if project.skill_4 %}
+                        <h6 class="float-left mr-2"> &#9642;{{ project.skill_4 }}</h6> 
+                        {% endif %}
+                        </td>
+                    </tr>
+                    </table>
+
+                    <hr>
+
+                    <!--Project Button-->
+                    <div class="project-card-button">
+                    <a href="{% url 'project_view' project.id %}"   class="btn btn-success btn-sm" >View</a>
+                    <a href="{% url 'project_edit' project.id %}"  class="btn btn-info btn-sm">Edit Project</a> 
+                    <a href="{% url 'project_delete' project.id %}"  class="btn btn-danger btn-sm">Delete Project</a> 
+                    </div>
+                </div>
+            {% endfor %}
+          {% else %}
+                <center><h5 class="display-4">No Projects here!</h5></center>
+          {% endif %}
+        </div>
+      </div>
+
+
+      <!--Side Section-->
+      <!--User Mini Profile-->
+      <!-- <div class="col-md-4">
+        <div class="card-container">
+
+          <div class="card-head">
+            <p style="padding:0px; margin:0px;">side section</p>
+            <h4 style="padding:0px; margin:0px;">Side Section</h4>
+          </div>
+
+        </div>
+      </div> -->
+      
+      </div>
+  </div>
+
+
+</body>
+<!-- Scripts -->
+<script src="{% static 'JS/Dashboard.js' %}" type="text/javascript" ></script>
+
+<!--Footer-->
+{% include 'partials/_footer.html' %}
+
+</html>

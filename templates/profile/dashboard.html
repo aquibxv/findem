@@ -30,8 +30,8 @@
 <div class="container">
   <h4>Your Dashboard</h4>
   <hr>
-  <a href="Project.html" role="button" class="btn btn-success"><b>+ Post a Project</b></a>
-  <a href="Projects.html" role="button" class="btn btn-outline-success"><b>Browse Projects</b></a>
+  <a href="{%  url 'create' %}" role="button" class="btn btn-success"><b>+ Post a Project</b></a>
+  <a href="{% url 'search_project' %}" role="button" class="btn btn-outline-success"><b>Browse Projects</b></a>
 </div>
 
 <div class="container">
@@ -40,100 +40,80 @@
     <!--Body + NewsFeed-->
     <div class="col-md-8">
 
+    <!--Alerts-->
+    {% include 'partials/_alerts.html' %}
+
     <!--Recent Projects-->
       <div class="card-container mb-5">
         <div class="card-head">
             <h5 style="display:inline-block">Live Projects</h5>
-            <a class="float-right" href="Projects.html">Browse all-></a>
+            <a class="float-right" href="{% url 'search_project' %}">Browse all-></a>
         </div>
         <hr style="padding:0px;margin:0px;">
 
-        <!--Project card box-->
-        <div class="project-card">
-          <div class="row">
-            <div class="col-sm-10 project-item">
-              <h6> <i class="fas fa-file-signature"></i> Project Title : </h6>
-              <!--Project name-->
-              <h6>Android ScreenShot Manager</h6> 
-            </div>
-            <div class="col-sm-2">
-              <h6 id="live"><i class="fas fa-wifi mr-1"></i>Live</h6>
-            </div>
-          </div>
-
-          <!--Project Domain and Project Type-->
-          <div class="">
-            <h6 class="float-left mr-5"><i class="fas fa-globe-americas mr-1"></i>Android</h6>
-            <h6 ><i class="fas fa-laptop"></i> Mini-Project</h6>
-          </div>
-          
-          <!--Project Description-->
-          <div>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, iste corporis blanditiis praesentium eligendi ducimus repellat tempora aliquam vitae perspiciatis.</p>
-          </div>
-
-          <!--Skills Requierd-->
-          <table>
-            <tr>
-              <td><h6 class="mr-2"><i class="fas fa-award"></i> Skills Required : </h6></td>
-              <td>
-                <h6 class="float-left mr-2">Django</h6> 
-                <h6 class="float-left mr-2">Python</h6> 
-                <h6 class="float-left mr-2">Bootstrap</h6> 
-              </td>
-            </tr>
-          </table>
-
-          <hr>
-
-          <div class="project-card-button">
-            <a href="Project_view.html" type="button" class="btn btn-success btn-sm" >View</a>
-            <a href="###" type="button" class="btn btn-primary btn-sm" >Join Project</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-            <div class="row">
-              <div class="col-sm-10 project-item">
-                <h6> <i class="fas fa-file-signature"></i> Project Title : </h6>
-                <!--Project name-->
-                <h6>Android ScreenShot Manager</h6> 
+        {% if projects %}
+          {% for project in projects %}
+            <!--Project card box-->
+            <div class="project-card">
+              <div class="row">
+                <div class="col-sm-10 project-item">
+                  <h6> <i class="fas fa-file-signature"></i> Project Title : </h6>
+                  <!--Project name-->
+                  <h6>{{ project.title }}</h6> 
+                </div>
+                <!--Live-->
+                <div class="col-sm-2">
+                  <h6 id="live"><i class="fas fa-wifi mr-1"></i>Live</h6>
+                </div>
               </div>
-              <div class="col-sm-2">
-                <h6 id="live"><i class="fas fa-wifi mr-1"></i></i></i>Live</h6>
+  
+              <!--Project Domain and Project Type-->
+              <div class="">
+                <h6 class="float-left mr-5"><i class="fas fa-globe-americas mr-1"></i>{{ project.domain }}</h6>
+                <h6 ><i class="fas fa-laptop"></i> {{ project.project_type }} </h6>
               </div>
-            </div>
+              
+              <!--Project Description-->
+              <div>
+                <p>{{ project.description }}</p>
+              </div>
   
-            <!--Project Domain and Project Type-->
-            <div class="">
-              <h6 class="float-left mr-5"><i class="fas fa-globe-americas mr-1"></i>Android</h6>
-              <h6 ><i class="fas fa-laptop"></i> Mini-Project</h6>
-            </div>
-            
-            <!--Project Description-->
-            <div>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quo, iste corporis blanditiis praesentium eligendi ducimus repellat tempora aliquam vitae perspiciatis.</p>
-            </div>
+              <!--Skills Requierd-->
+              <table>
+                  <tr>
+                      <td><h6 class="mr-2"><i class="fas fa-award"></i> Skills Required : </h6></td>
+                      <td>
+                      <h6 class="float-left mr-2"> &#9642;{{ project.skill_1 }}</h6> 
+                      {% if project.skill_2 %}
+                          <h6 class="float-left mr-2"> &#9642;{{ project.skill_2 }}</h6> 
+                      {% endif %}
+                      {% if project.skill_3 %}
+                      <h6 class="float-left mr-2"> &#9642;{{ project.skill_3 }}</h6> 
+                      {% endif %}
+                      {% if project.skill_4 %}
+                      <h6 class="float-left mr-2"> &#9642;{{ project.skill_4 }}</h6> 
+                      {% endif %}
+                      </td>
+                  </tr>
+                  </table>
   
-            <!--Skills Requierd-->
-            <table>
-              <tr>
-                <td><h6 class="mr-2"><i class="fas fa-award"></i> Skills Required : </h6></td>
-                <td>
-                  <h6 class="float-left mr-2">Django</h6> 
-                  <h6 class="float-left mr-2">Python</h6> 
-                  <h6 class="float-left mr-2">Bootstrap</h6> 
-                </td>
-              </tr>
-            </table>
+              <hr>
   
-            <hr>
-  
-            <div class="project-card-button">
-                <a href="Project_view.html" type="button" class="btn btn-success btn-sm" >View</a>
+              <div class="project-card-button">
+                <a href="{% url 'project_view' project.id %}"  type="button" class="btn btn-success btn-sm" >View</a>
                 <a href="###" type="button" class="btn btn-primary btn-sm" >Join Project</a>
+              </div>
             </div>
-          </div>
+          {% endfor %}
+        {% else %}
+            <div style="padding:20px;">
+              <center>
+                  <h4>No live projects are going on in your college right now!</h4>
+                  <h5>(Go ahead and browse other projects)</h5>
+              </center>
+            </div>
+        {% endif %}
+
 
       </div>
 
@@ -148,13 +128,19 @@
         <div class="card-head">
           <a href="###" class="card-link float-right mt-1"><i class="fas fa-cog mr-1"></i>Edit profile</a>
           <p style="padding:0px; margin:0px;">Welcome,</p>
-          <h4 style="padding:0px; margin:0px;">Aquib Ansari</h4>
+          <h4 style="padding:0px; margin:0px;">{{ user.name }}</h4>
         </div>
 
         <!--Profile Body-->
         <div class="row profile-body">
           <div class="col-md-4 profile-picture-container" style="border-right: 1px solid #ccc;">
-            <img src="{{ user.profile_picture.url }}" alt="" id="dash-profile-picture">
+          <!-- {% ifequal user.profile_picture None %}
+              <img src="{% static 'Images/user.gif'%}" id="dash-profile-picture" />
+          {% else %}
+              {{ user.profile_picture.url }}
+          {% endifequal %} -->
+          <img src="{{ user.profile_picture.url }}" id="dash-profile-picture" />
+  
           </div>
           <div class="col-md-7 profile-card">
            
@@ -188,7 +174,7 @@
           <!--Bio User-->
           <div>
               <h6><i class="fas fa-user-edit"></i> Bio :</h6>
-              <p>{{ request.session.bio }}</p>
+              <p>{{personal_info.bio}}</p>
           </div>
           
           <!--Top Skills-->

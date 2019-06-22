@@ -39,12 +39,15 @@ class UserProfileManager(BaseUserManager):
         user.save(using=self._db)
 
         return user
+        
+# sertting up a default profile picture
+profile_pic = 'photos/user.gif'
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     """Represents a user profile inside our system"""
 
     email = models.EmailField(max_length=255, unique=True)
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, default=profile_pic)
     profile_picture = models.ImageField(upload_to='photos/%y/%m/%d/')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -58,6 +61,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     skill_5 = models.CharField(max_length=20, blank=True)
     skill_6 = models.CharField(max_length=20, blank=True)
     join_date = models.DateTimeField(default = datetime.now, blank=True)
+    
 
     objects = UserProfileManager()
 

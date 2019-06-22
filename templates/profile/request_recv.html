@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <!-- Custom styles for this template -->
+     <link href="{% static 'signin.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_Dashboard.css' %}">
+	<title>Requests | Findem</title>
+
+</head>
+<body>
+
+<!-- Top Navigatin bar -->
+{% include 'partials/_top-navigation-primary.html' %}
+
+<!--Main Navigation Bar-->
+<!--Navigation Bar-->
+{% include 'partials/_main_navigation.html' %}
+<br/>
+
+<div class="container">
+    <div class="row">
+    <div class="col-md-3">
+      <a href="{% url 'requests' %}" class="btn btn-primary mr-2">Sent</a>
+      <a href="{% url 'request_recv' %}" class="btn btn-primary">Recieved</a>
+    </div>
+  </div>
+  </div>
+
+<!--Sent User Requests-->
+<section class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <p><b> Recieved User Requests </b></p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Profile</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td> 
+                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                Rajesh Kumar</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Profile</a>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Respond
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Accept</a>
+                      <a class="dropdown-item" href="#">Reject</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                Yogesh Sinsinwar</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Profile</a>
+                </td>
+                 <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Respond
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Accept</a>
+                      <a class="dropdown-item" href="#">Reject</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                Priya Yadav</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Profile</a>
+                </td>
+                 <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Respond
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Accept</a>
+                      <a class="dropdown-item" href="#">Reject</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</section>
+
+<div class="container"> 
+    <hr>  
+</div>
+
+<!--Sent Projects Requests-->
+<section class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-11">
+          <p><b> Recieved Project Requests </b></p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Project</th>
+                <th scope="col">Requesting User</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Flipkart</td>
+                <td>
+                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                Rajesh Kumar</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Profile</a>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Respond
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Accept</a>
+                      <a class="dropdown-item" href="#">Reject</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+               <tr>
+                <td>Snap Deal</td>
+                <td>
+                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                Yogesh Kumar</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Profile</a>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Respond
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Accept</a>
+                      <a class="dropdown-item" href="#">Reject</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <tr>
+                <td>Screenshot App</td>
+                <td>
+                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
+                Priya Yadav</td>
+                <td>
+                  <a class="btn btn-light" href="#">View Profile</a>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Respond
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Accept</a>
+                      <a class="dropdown-item" href="#">Reject</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+</section>
+
+</body>
+
+<!--Footer-->
+{% include 'partials/_footer.html' %}
+
+</html>

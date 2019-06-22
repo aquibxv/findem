@@ -1,0 +1,444 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Project Post | Findem</title>
+	<meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_SignUp.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_Project.css' %}">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   
+    <!--Script for Upload media-->
+    <script type="text/javascript">
+	// function to show 'attach more files' soon as a new file is uploaded
+	$(document).ready(function() {
+		$("input[id^='upload_file']").each(function() {
+			var id = parseInt(this.id.replace("upload_file", ""));
+			$("#upload_file" + id).change(function() {
+				if ($("#upload_file" + id).val() != "") {
+					$("#moreImageUploadLink").show();
+				}
+			});
+		});
+	});
+	
+	// function to show 'attach more files' button
+	var upload_number = 2;
+	$(document).ready(function() {
+		
+		$('#attachMore').click(function() {
+			//add more file
+			var moreUploadTag = '';
+
+			moreUploadTag += '<div class="element p-2"> <label for="upload_file"' + upload_number + '>Upload File :</label>';
+
+			moreUploadTag += '<input type="file"  id="upload_file' + upload_number + '" name="upload_file' + upload_number + '"/>';
+
+			moreUploadTag += ' <a class="btn btn-small btn-danger" href="javascript:del_file(' + upload_number + ')" style="cursor:pointer;">Delete ' + upload_number + '</a></div>';
+
+			$('<dl id="delete_file' + upload_number + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreImageUpload');
+
+			upload_number++;
+
+			// if more than 6 files are uploaded then hide 'attach more files'
+			if (upload_number > 3) {
+					$("#moreImageUploadLink").hide();
+				}
+		});
+	});
+	
+	// function to delete a file
+	function del_file(eleId) {
+		var ele = document.getElementById("delete_file" + eleId);
+		ele.parentNode.removeChild(ele);
+
+		// decrease the upload file counter soon as deleted an element
+		--upload_number;
+
+		// if uploading number is less than 7 then show the upload file button
+		if (upload_number <= 3) {
+			$("#moreImageUploadLink").show();
+		}
+
+		console.log(upload_number);
+    }
+    
+    function incro_media_count() {
+        upload_number++;
+    }
+    </script>
+
+    <!--Script for Upload Skills-->
+    <script>
+	
+	// function to show 'attach more skills' button
+	var upload_number_skill = 2;
+	$(document).ready(function() {
+		
+		$('#attachMoreSkill').click(function() {
+			//add more file
+			var moreUploadTag = '';
+
+			moreUploadTag += '<input type="text" class="form-control" placeholder="Enter Skill" style="width:50%" id="upload_skill' + upload_number_skill + '" name="upload_skill' + upload_number_skill + '"/>';
+
+			moreUploadTag += ' <a class="btn btn-danger" href="javascript:del_skill(' + upload_number_skill + ')" style="cursor:pointer;">Delete ' + upload_number_skill + '</a>';
+
+			$('<dl id="delete_skill' + upload_number_skill + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreSkillsUpload');
+
+			upload_number_skill++;
+
+			// if more than 6 files are uploaded then hide 'attach more files'
+			if (upload_number_skill > 4) {
+					$("#moreSkillsUploadLink").hide();
+				}
+		});
+	});
+	
+	// function to delete a file
+	function del_skill(eleId) {
+		var ele = document.getElementById("delete_skill" + eleId);
+		ele.parentNode.removeChild(ele);
+
+		// decrease the upload file counter soon as deleted an element
+		--upload_number_skill;
+
+		// if uploading number is less than 5 then show the upload file button
+		if (upload_number_skill < 5) {
+			$("#moreSkillsUploadLink").show();
+		}
+    }
+    
+    function incro_skill_count() {
+        upload_number_skill++;
+    }
+
+    </script>
+
+     <!--Script for Upload Links-->
+     <script>
+	
+        // function to show 'attach more LInks' button
+        var upload_number_link = 2;
+        $(document).ready(function() {
+            
+            $('#attachMoreLink').click(function() {
+                //add more file
+                var moreUploadTag = '';
+    
+                moreUploadTag += '<input type="text" class="form-control" placeholder="http://" style="width:70%" id="upload_link' + upload_number_link + '" name="upload_link' + upload_number_link + '"/>';
+    
+                moreUploadTag += ' <a class="btn btn-danger" href="javascript:del_link(' + upload_number_link + ')" style="cursor:pointer;">Delete ' + upload_number_link + '</a>';
+    
+                $('<dl id="delete_link' + upload_number_link + '">' + moreUploadTag + '</dl>').fadeIn('slow').appendTo('#moreLinksUpload');
+    
+                upload_number_link++;
+    
+                // if more than 6 files are uploaded then hide 'attach more files'
+                if (upload_number_link > 3) {
+                        $("#moreLinkUploadLink").hide();
+                    }
+            });
+        });
+        
+        // function to delete a link
+        function del_link(eleId) {
+            var ele = document.getElementById("delete_link" + eleId);
+            ele.parentNode.removeChild(ele);
+    
+            // decrease the upload file counter soon as deleted an element
+            --upload_number_link;
+    
+            // if uploading number is less than 7 then show the upload file button
+            if (upload_number_link <= 3) {
+                $("#moreLinkUploadLink").show();
+            }
+        }
+
+        function incro_link_count() {
+            upload_number_link++;
+        }
+    </script>
+</head>
+<body>
+
+{% if project %}
+    <div class="container" id="body">
+        <!--Heading and block-->
+        <div class="project-head-section">
+            <div>
+                <h4 class="title-back">Findem</h4>
+                <span class="back-btn"><a href="{% url 'dashboard' %}"><img src="{% static 'Images/back.png' %}" alt="back"></a></span>
+            </div>
+            <h4 class="display-3" style="color: green; font-size: 3rem;">Edit project</h4>
+            <hr/>
+        </div>
+    
+        <!--Form for collecting project data-->
+        <form class="needs-validation project-form" novalidate autocomplete="off"
+         action="{% url 'project_edit' project.id %}" method="POST">
+         {% csrf_token %}
+            <!--Project Author - automatically filled-->
+            <div class="form-group mb-4">
+                    <label for="project-author"><h5 class="project-field">Project's Author</h5> <span id="required-field">*</span>
+                    </label>
+                    <input type="text" class="form-control" value="{{ user.name }}"
+                    name='project-author' id="project-author" placeholder="Enter the author's name" style="width:100%" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter author's name</div>
+            </div>
+    
+            <!--Name of Project-->
+            <div class="form-group mb-4">
+                <label for="project-name"><h5 class="project-field">Enter a name for your project</h5> <span id="required-field">*</span>
+                </label>
+                <input type="text" class="form-control" name="project-name" id="project-name" 
+                value="{{ project.title }}" placeholder="ex. e-commerce website" style="width:100%" required>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter your project's name</div>
+            </div>
+    
+            <!--About the Project-->
+            <div class="form-group mb-4">
+                <label for="project-descript"><h5 class="project-field"> 
+                    Tell something about your project</h5> 
+                    <span id="required-field">*</span>
+                    <p class="project-title-detail">start with a bit about yourself, your objective with this project, what your expect it to turn out as, etc.</p>
+                </label>
+                <textarea class="form-control" id="project-descirpt" name="project-descirpt"
+                rows="4" placeholder="Describe your project here..." required >{{ project.description }}</textarea>
+                <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please describe your project</div>
+            </div>
+    
+            <!--Skills required for the Project-->
+            <!--Dynamic Tag Functionlaity are here-->
+            <div class="mb-4">
+                <h5 class="project-field">
+                    Skills required for the project
+                <span id="required-field">*</span>
+                </h5>
+    
+                <!--Div tag for uploading a skill-->
+                <div class="element-skill form-group mb-3">
+                    <input type="text" class="form-control" value="{{ project.skill_1 }}"  name="upload_skill1" id="upload_skill1" placeholder="Enter Skill" required>
+                    <div class="valid-feedback">Looks good!</div>
+                <div class="invalid-feedback">Please enter a skill required</div>
+                </div>
+
+                {% if project.skill_2  != ' ' %}
+                <script>incro_skill_count()</script>
+                <div class="element-skill form-group mb-3">
+                    <input type="text" class="form-control" value="{{ project.skill_2 }}"  name="upload_skill2" id="upload_skill2" placeholder="Enter Skill" required>
+                </div>
+                {% endif %}
+
+                {% if project.skill_3 != ' '  %}
+                <script>incro_skill_count()</script>
+                <div class="element-skill form-group mb-3">
+                    <input type="text" class="form-control" value="{{ project.skill_3 }}"  name="upload_skill3" id="upload_skill3" placeholder="Enter Skill" required>
+                </div>
+                {% endif %}
+
+                {% if project.skill_4 != ' ' %}
+                <script>incro_skill_count()</script>
+                <div class="element-skill form-group mb-3">
+                    <input type="text" class="form-control" value="{{ project.skill_4 }}"  name="upload_skill4" id="upload_skill4" placeholder="Enter Skill" required>
+                </div>
+                {% endif %}
+    
+                <div id="moreSkillsUpload"></div>
+                <div class="clear"></div>
+                      
+                <div id="moreSkillsUploadLink" style="margin-top: 10px;">
+                    <a class="btn btn-sm btn-outline-secondary" href="javascript:void(0);" id="attachMoreSkill">Add another skill</a>
+                </div>
+            </div>
+    
+            <!--Media Uploads for the Project-->
+            <!--Dynamic Tag Functionlaity are required here-->
+            <div class="mb-4">
+                    <h5 class="project-field mb-0">Upload Media</h5>
+                    <p class="project-title-detail pt-0 mt-0 mb-1">Attaching media such as Images act as a visual cue for your project.</p>
+                    <p class="project-title-detail pt-0 mt-0 mb-1">(Upload new image to overite previous one)</p>
+    
+                    <!--Div tag for uploading a file-->
+                    <div class="element-media mb-2 p-2">
+                        <label>Upload file :</label>
+                        <img src="{{ project.photo_1.url }}" alt="photo_1" width="10%">
+                        <input type="file" name="upload_file1" id="upload_file1"/>
+                    </div>
+
+                    {% if project.photo_2 %}
+                    <script>incro_media_count()</script>
+                    <div class="element-media mb-2 p-2">
+                            <label>Upload file :</label>
+                            <img src="{{ project.photo_2.url }}" alt="photo_2" width="10%">
+                            <input type="file" name="upload_file3" id="upload_file2"/>
+                    </div>
+                    {% endif %}
+
+                    {% if project.photo_3 %}
+                    <script>incro_media_count()</script>
+                    <div class="element-media mb-2 p-2">
+                            <label>Upload file :</label>
+                            <img src="{{ project.photo_3.url }}" alt="photo_3" width="10%">
+                            <input type="file" name="upload_file3" id="upload_file3"/>
+                    </div>
+                    {% endif %}
+                      
+                    <div id="moreImageUpload"></div>
+                    <div class="clear"></div>
+                      
+                    <div id="moreImageUploadLink" style="display:none;margin-top: 10px;">
+                        <a class="btn btn-sm btn-outline-secondary" href="javascript:void(0);" id="attachMore">Attach another file</a>
+                    </div>
+            </div>
+    
+            <!--Links Uploads for the Project-->
+            <!--Dynamic Tag Functionlaity are required here-->
+            <div class="mb-4">
+                <h5 class="project-field mb-0">Attach Link(s)</h5>
+                <p class="project-title-detail pt-0 mt-0 mb-3">Attach links to resources to better describe your project.</p>
+    
+                <!--Div tag for uploading a link-->
+                <div class="element-link mb-2">
+                    <input type="text" class="form-control mb-3" value="{{ project.link_1 }}"  name="upload_link1" id="upload_link1" style="width:70%;" placeholder="http://">
+                </div>
+                  
+                {% if project.link_2 != ' ' %}
+                <script>incro_link_count()</script>
+                <div class="element-link mb-2">
+                    <input type="text" class="form-control mb-3" value="{{ project.link_2 }}"  name="upload_link2" id="upload_link2" style="width:70%;" placeholder="http://">
+                </div>
+                {% endif %}
+
+                {% if project.link_3 != ' ' %}
+                <script>incro_link_count()</script>
+                <div class="element-link mb-2">
+                    <input type="text" class="form-control mb-3" value="{{ project.link_3 }}"  name="upload_link3" id="upload_link3" style="width:70%;" placeholder="http://">
+                </div>
+                {% endif %}
+
+                <div id="moreLinksUpload"></div>
+                <div class="clear"></div>
+                  
+                <div id="moreLinkUploadLink" style="margin-top: 10px;">
+                    <a class="btn btn-sm btn-outline-secondary" href="javascript:void(0);" id="attachMoreLink">Attach another link</a>
+                </div>
+        </div>
+    
+    
+    
+            <!--Domain of the Project-->
+            <div class="form-group mb-4">
+                <label for="project-domain">
+                    <h5 class="project-field">Enter domain of your project</h5>
+                    <span id="required-field">*</span>
+                </label><br/>
+                <div class="autocomplete">
+                    <input type="text" id="project-domain" class="form-control" name="project-domain" aria-describedby="inputprojectdomain"
+                     placeholder="ex. Android App, Web technology" value="{{ project.domain }}" style="width:100%" required>
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please enter project domain.</div>
+                </div>
+            </div>
+            
+            <!--Type of Project-->
+            <div class="form-group mb-4">
+                    <label for="project-type">
+                        <h5 class="project-field">What is the project type?</h5>
+                        <span id="required-field">*</span></label><br/>
+                        <select class="custom-select select-input" id="project-type" name="project-type" required>
+                                <option selected="true"  disabled="disabled">Select Project_type</option>
+                                {% for key, value in project_type_choices.items %}
+                                    <option value="{{ key }}"
+                                    {% if key == project.project_type %}
+                                    selected
+                                    {% endif %}
+                                    >{{ value }}</option>
+                              {% endfor %}
+                        </select>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please specify your project type</div>
+            </div>
+    
+            <!-- Member expected to complete the project
+            <div class="form-group mb-4">
+                    <label for="team-size">
+                        <h5 class="project-field">Number of people required to complete the project</h5>
+                        <span id="required-field">*
+                        </label><br/>
+                        <select  class="custom-select select-input" name="team-size" id="team-size" required>
+                                <option selected>2-3</option>
+                                <option value="1">4-7</option>
+                                <option value="2">8-10</option>
+                                <option value="3">10-15</option>
+                                <option value="5">15-20</option>
+                                <option value="6">20+</option>
+                        </select>
+                        <div class="valid-feedback">Looks good!</div>
+                        <div class="invalid-feedback">Please fill this required feild</div>
+            </div> -->
+    
+            <!-- Additional Details-->
+            <!--Would you allow contributers to add this project to their resume ?-->
+            <div class="mb-4">
+                <h5 class="project-field">Allow collaboraters to add project in their resume?</h5>
+                <label class="switch">
+                    <input type="checkbox" id="project-resume-add" name="project-resume-add" 
+                    {% if project.resume_inclusion == "on" %}
+                    checked
+                    {% endif %}>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+    
+            <!--Status of Project-- Live or not-->
+            <div class="mb-4">
+                <h5 class="project-field">Is the Project live ?</h5>
+                </label>
+                <label class="switch">
+                    <input type="checkbox" id="project-live" name="project-live" 
+                    {% if project.live == "on" %}
+                    checked
+                    {% endif %}>
+                    <span class="slider round"></span>
+                </label>
+            </div>
+    
+            <!--Estimated Deadline for the project-->
+            
+            <h1></h1>
+            <div class="form-group mb-4">
+                    <label for="project-deadline"><h5 class="project-field">Estimated Deadline for your project</h5>
+                    </label>
+                    <span id="required-field">*</span></label><br/>
+                    <input type="date" class="form-control" name="project-deadline" id="project-deadline"
+                    value="{{ project.deadline|date:"Y-m-d" }}" required style="width:40%">
+                    <div class="valid-feedback">Looks good!</div>
+                    <div class="invalid-feedback">Please specify your project's deadline</div>
+            </div>
+            <hr>
+    
+            <!--Submit buttons-->
+            <div>
+                <a href="{% url 'dashboard' %}" class="btn btn-warning btn-md"><b>Nah! Cancel it</b></a>
+                <button type="button submit" class="btn btn-success btn-md"><b>Yes, Post my Project!</b></button>
+                
+            </div>
+        </form>
+    
+    </div>
+{% endif %}
+
+</body>
+<!--Javascript Inclusion-->
+
+
+</html>
