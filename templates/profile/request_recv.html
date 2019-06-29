@@ -14,7 +14,17 @@
      <link href="{% static 'signin.css' %}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_Dashboard.css' %}">
-	<title>Requests | Findem</title>
+  <title>Requests | Findem</title>
+  <style>
+      img#user-profile {
+        width: 37px;
+        height: 35px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        padding:0px;
+        margin:0px;
+    }
+  </style>
 
 </head>
 <body>
@@ -36,12 +46,13 @@
   </div>
   </div>
 
-<!--Sent User Requests-->
+<!--Received User Requests-->
 <section class="py-4">
     <div class="container">
       <div class="row">
         <div class="col-md-8">
           <p><b> Recieved User Requests </b></p>
+          {% if user_requests %}
           <table class="table">
             <thead>
               <tr>
@@ -50,12 +61,13 @@
               </tr>
             </thead>
             <tbody>
+              {% for user_request in user_requests %}
               <tr>
                 <td> 
-                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
-                Rajesh Kumar</td>
+                <img src="{{ user_request.sending_user_picture.url }}" alt="User-Image" id="user-profile">
+                {{ user_request.sending_user_name }}</td>
                 <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
+                  <a class="btn btn-light" href="{% url 'profile' user_request.sending_user_id %}">View Profile</a>
                 </td>
                 <td>
                   <div class="btn-group">
@@ -63,52 +75,18 @@
                       Respond
                     </button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Accept</a>
-                      <a class="dropdown-item" href="#">Reject</a>
+                      <a class="dropdown-item" href="{% url 'profile_request' 1 user_request.id %}">Accept</a>
+                      <a class="dropdown-item" href="{% url 'profile_request' 0 user_request.id %}">Reject</a>
                     </div>
                   </div>
                 </td>
               </tr>
-              <tr>
-                <td>
-                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
-                Yogesh Sinsinwar</td>
-                <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
-                </td>
-                 <td>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Respond
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Accept</a>
-                      <a class="dropdown-item" href="#">Reject</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
-                Priya Yadav</td>
-                <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
-                </td>
-                 <td>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Respond
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Accept</a>
-                      <a class="dropdown-item" href="#">Reject</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
+          {% else %}
+            <p>No received requests</p>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -124,6 +102,7 @@
       <div class="row">
         <div class="col-md-11">
           <p><b> Recieved Project Requests </b></p>
+          {% if project_requests %}
           <table class="table">
             <thead>
               <tr>
@@ -132,13 +111,14 @@
               </tr>
             </thead>
             <tbody>
+              {% for project_request in project_requests %}
               <tr>
-                <td>Flipkart</td>
+                <td>{{ project_request.name }}</td>
                 <td>
-                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
-                Rajesh Kumar</td>
+                <img src="{{ project_request.sending_user_picture.url }}" alt="User-Image" id="user-profile">
+                {{ project_request.sending_user_name }}</td>
                 <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
+                  <a class="btn btn-light" href="{% url 'profile' project_request.sending_user_id %}">View Profile</a>
                 </td>
                 <td>
                   <div class="btn-group">
@@ -146,56 +126,18 @@
                       Respond
                     </button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Accept</a>
-                      <a class="dropdown-item" href="#">Reject</a>
+                      <a class="dropdown-item" href="{% url 'project_request' 1 project_request.id %}">Accept</a>
+                      <a class="dropdown-item" href="{% url 'project_request' 0 project_request.id %}">Reject</a>
                     </div>
                   </div>
                 </td>
-              </tr>
-              <tr>
-               <tr>
-                <td>Snap Deal</td>
-                <td>
-                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
-                Yogesh Kumar</td>
-                <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
-                </td>
-                <td>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Respond
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Accept</a>
-                      <a class="dropdown-item" href="#">Reject</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <tr>
-                <td>Screenshot App</td>
-                <td>
-                <img src="Images/User.jpg" alt="User-Image" id="user-profile">
-                Priya Yadav</td>
-                <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
-                </td>
-                <td>
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Respond
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Accept</a>
-                      <a class="dropdown-item" href="#">Reject</a>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              </tr> 
+              {% endfor %}
             </tbody>
           </table>
+          {% else %}
+            <p>No project requests recieved</p>
+          {% endif %}
         </div>
       </div>
     </div>

@@ -1,4 +1,16 @@
  {% load static %}
+ <style>
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 80px;
+      padding: 6px 9px;
+      border-radius: 50%;
+      background-color: red;
+      color: white;
+    }
+ </style>
+
  <!-- Top Navigatin bar -->
  <nav class="navbar navbar-expand-lg navbar-light bg-success" id="navbar-container">
     <div class="container">
@@ -36,6 +48,18 @@
             <li class="nav-item">
               <a href="" id="how-it-works">How it works</span></a>
             </li>
+
+            <li class="nav-item">
+              <a href="{% url 'notifications' %}" id="how-it-works">
+                <i class="fas fa-bell"></i>
+                <span class="badge"
+                {% if user.notification == 0 %}
+                  style="display:none"
+                {% endif %}>
+                {{ user.notification }}</span>
+              </a>
+            </li>
+            
             <li class="nav-item">
                 <div class="dropdown">
                   <a class="nav-link dropdown-toggle" id="navbar-user" href="###" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,7 +95,6 @@
 
         {% endif %}
 
-          
       </div>
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import UserContact, ProjectContact
+from .models import UserContact, ProjectContact, AcceptedUser, AcceptedProject
 
 # Register your models here.
 class UserContactAdmin(admin.ModelAdmin):
@@ -12,7 +12,19 @@ class ProjectContactAdmin(admin.ModelAdmin):
     list_display_links = ['name', 'contact_date']
     list_per_page = 20
 
+class AcceptedUserAdmin(admin.ModelAdmin):
+    list_display = ['user_name', 'receiver_name', 'contact_date']
+    list_display_links = ['user_name', 'receiver_name', 'contact_date']
+    list_per_page = 20
+
+class AcceptedProjectAdmin(admin.ModelAdmin):
+    list_display = ['user_name', 'receiver_name', 'project_name', 'contact_date']
+    list_display_links = ['user_name', 'receiver_name', 'project_name', 'contact_date']
+    list_per_page = 20
+
 admin.site.register(UserContact,  UserContactAdmin)
 admin.site.register(ProjectContact, ProjectContactAdmin)
+admin.site.register(AcceptedUser, AcceptedUserAdmin)
+admin.site.register(AcceptedProject, AcceptedProjectAdmin)
 
 

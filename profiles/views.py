@@ -9,6 +9,7 @@ from profiles.models import UserProfile
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, PersonalInformation, SocialPlatform, Accomplishments, Location, WorkExperience
 from projects.models import Project
+from contact.models import UserContact, ProjectContact, AcceptedProject, AcceptedUser
 
 # Create your views here.
 def search(request):
@@ -201,6 +202,24 @@ def dashboard(request):
     return render(request, 'profile/dashboard.html', context)
 
 @login_required
+def notifications(request):
+    """ view for displaying all the notifications a user has received in the system"""
+
+    user_requests = AcceptedUser.objects.all().filter(user_id=request.user.id)
+    project_requests = AcceptedProject.objects.all().filter(user_id=request.user.id)
+
+    # also update the notfications count of the user to 0
+    request.user.notification = 0
+    request.user.save()
+
+    context = {
+        'user_requests' : user_requests,
+        'project_requests' : project_requests,
+    }
+
+    return render(request, 'profile/notifications.html', context)
+
+@login_required
 def myProjects(request):
     """View for displaying a users projects in the system"""
 
@@ -215,15 +234,31 @@ def myProjects(request):
 
 @login_required
 def requests(request):
-    """View for displaying user's requests in the system"""
+    """View for displaying user's sent requests in the system"""
+    
+    user_requests = UserContact.objects.all().filter(sending_user_id=request.user.id).filter(response=False)
+    project_requests = ProjectContact.objects.all().filter(sending_user_id=request.user.id).filter(response=False)
 
-    return render(request, 'profile/request.html')
+    context = {
+        'user_requests' : user_requests,
+        'project_requests' : project_requests, 
+    }
+
+    return render(request, 'profile/request.html', context)
 
 @login_required
 def requests_recv(request):
-    """View for displaying user's requests in the system"""
+    """View for displaying user's received requests in the system"""
 
-    return render(request, 'profile/request_recv.html')
+    user_requests = UserContact.objects.all().filter(receiving_user_id=request.user.id).filter(response=False)
+    project_requests = ProjectContact.objects.all().filter(receiving_user_id=request.user.id).filter(response=False)
+
+    context = {
+        'user_requests' : user_requests,
+        'project_requests' : project_requests, 
+    }
+
+    return render(request, 'profile/request_recv.html', context)
 
 @login_required
 def message(request):

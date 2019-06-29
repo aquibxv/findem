@@ -41,43 +41,31 @@
       <div class="row">
         <div class="col-md-8">
           <p><b> Sent User Requests </b></p>
+          {% if user_requests %}
           <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">Profile</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Rajesh Kumar</td>
-                <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
-                </td>
-                <td>
-                  <a class="btn btn-danger" href="#">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Yogesh Sinsinwar</td>
-                <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
-                </td>
-                 <td>
-                  <a class="btn btn-danger" href="#">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <td>Priya Yadav</td>
-                <td>
-                  <a class="btn btn-light" href="#">View Profile</a>
-                </td>
-                 <td>
-                  <a class="btn btn-danger" href="#">Delete</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+              <thead>
+                <tr>
+                  <th scope="col">Profile</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user_request in user_requests %}
+                  <tr>
+                    <td>{{ user_request.name }}</td>
+                    <td>
+                      <a class="btn btn-light" href="{% url 'profile' user_request.receiving_user_id %}">View Profile</a>
+                    </td>
+                    <td>
+                      <a class="btn btn-danger" href="{% url 'delete_user_request' user_request.id  %}">Delete</a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+              <p>No sent requests</p>
+            {% endif %}
         </div>
       </div>
     </div>
@@ -93,6 +81,7 @@
       <div class="row">
         <div class="col-md-8">
           <p><b> Sent Project Requests </b></p>
+          {% if project_requests %}
           <table class="table">
             <thead>
               <tr>
@@ -100,37 +89,22 @@
               </tr>
             </thead>
             <tbody>
+              {% for project_request in project_requests %}
               <tr>
-                <td>Flipkart</td>
+                <td>{{project_request.name}}</td>
                  <td>
-                  <a class="btn btn-light" href="#">View Project</a>
+                  <a class="btn btn-light" href="{% url 'project_view' project_request.project_id %}">View Project</a>
                 </td>
                 <td>
-                  <a class="btn btn-danger" href="#">Delete</a>
+                  <a class="btn btn-danger" href="{% url 'delete_project_request' project_request.id %}">Delete</a>
                 </td>
               </tr>
-              <tr>
-               <tr>
-                <td>Snap Deal</td>
-                 <td>
-                  <a class="btn btn-light" href="#">View Project</a>
-                </td>
-                <td>
-                  <a class="btn btn-danger" href="#">Delete</a>
-                </td>
-              </tr>
-              <tr>
-                <tr>
-                <td>Screenshot App</td>
-                 <td>
-                  <a class="btn btn-light" href="#">View Project</a>
-                </td>
-                <td>
-                  <a class="btn btn-danger" href="#">Delete</a>
-                </td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
+          {% else %}
+            <p>No project reqeusts sent</p>
+          {% endif %}
         </div>
       </div>
     </div>

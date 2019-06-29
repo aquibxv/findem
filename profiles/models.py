@@ -60,6 +60,8 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     skill_4 = models.CharField(max_length=20, blank=True)
     skill_5 = models.CharField(max_length=20, blank=True)
     skill_6 = models.CharField(max_length=20, blank=True)
+    project_count = models.IntegerField(blank=True, default=0)
+    notification = models.IntegerField(blank=True, default=0)
     join_date = models.DateTimeField(default = datetime.now, blank=True)
     
 

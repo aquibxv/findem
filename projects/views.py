@@ -44,6 +44,10 @@ def create(request):
         photo_3=photo_3, link_1=link_1, link_2=link_2, link_3=link_3, domain=domain, project_type=project_type,
         resume_inclusion=resume_inclusion, live=live, deadline=deadline, upload_date=upload_date)
 
+        # update the project_count for the user
+        user.project_count = user.project_count + 1;
+        user.save()
+
         messages.success(request, "Your project has been posted successfully")
         return redirect('dashboard')
 
@@ -126,6 +130,10 @@ def project_delete(request, project_id):
     #fetch the project and delete
     project = Project.objects.get(id = project_id)
     project.delete()
+
+    request.user.project_count = request.user.project_count - 1;
+    request.user.save()
+
     return redirect('my_project')
 
 @login_required

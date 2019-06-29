@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Custom styles for this template -->
+    <link href="{% static 'signin.css' %}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_Dashboard.css' %}">
+	<title>Notifications | Findem</title>
+  <style>
+    img#user-profile {
+      width: 37px;
+      height: 35px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      padding:0px;
+      margin:0px;
+  }
+</style>
+
+</head>
+<body>
+
+<!-- Top Navigatin bar -->
+{% include 'partials/_top-navigation-primary.html' %}
+
+<!--Main Navigation Bar-->
+<!--Navigation Bar-->
+{% include 'partials/_main_navigation.html' %}
+<br/>
+
+<!--Request Notifications-->
+<section class="py-4">
+    <div class="container">
+      <div class="row">
+        <!--Table for User Request notifications-->
+        {% if user_requests %}
+        <div class="col-md-8">
+            <table class="table">
+                  <tbody>
+                    {% for user_request in user_requests %}
+                    <tr>
+                      <td> 
+                      <img src="{{ user_request.receiver_picture.url }}" alt="User-Image" id="user-profile">
+                      <b>{{ user_request.receiver_name }}</b> {{ user_request.message }}</td>
+                      <td>
+                        <a class="btn btn-light" href="{% url 'profile' user_request.receiver_id %}">View Profile</a>
+                      </td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="{% url 'delete_profile_notif' user_request.id %}"><i style="color: grey" class="fas fa-2x fa-times mt-1"></i></a>
+                        </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+            </table>
+        </div>
+        {%endif%}
+      </div>
+     
+      <div class="row">
+        <!--Table for project notifications-->
+        {% if project_requests %}
+        <div class="col-md-10">
+          <table class="table">
+            <tbody>
+              {% for project_request in project_requests %}
+                <tr>
+                    <td> 
+                    <img src="{{ project_request.receiver_picture.url }}" alt="User-Image" id="user-profile">
+                    <b>{{ project_request.receiver_name }}</b> {{ project_request.message }} <b>{{ project_request.project_name }}</b></td>
+                    <td>
+                      <a class="btn btn-light" href="{% url 'project_view' project_request.project_id %}">View Project</a>
+                    </td>
+                    <td>
+                      <div class="btn-group">
+                        <a href="{% url 'delete_project_notif' project_request.id %}"><i style="color: grey" class="fas fa-2x fa-times mt-1"></i></a>
+                      </div>
+                    </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% endif %}
+      </div>
+      
+      {% if not user_requests and not project_requests %}
+        <p><b>No notifications!</b></p>
+      {% endif %}
+    </div>
+</section>
+
+
+
+</body>
+
+<!--Footer-->
+{% include 'partials/_footer.html' %}
+
+</html>
