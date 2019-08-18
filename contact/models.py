@@ -65,7 +65,35 @@ class AcceptedProject(models.Model):
         """Django uses this to convert an object to a string"""
         return self.project_name
 
+class SentUserRequest(models.Model):
+    """ defines a notification model for all the user request that has been sent"""
+
+    message = models.CharField(max_length=50, default="has sent you a connection request")
+    receiver_id = models.IntegerField()
+    receiver_name = models.CharField(max_length=30)
+    sender_id = models.IntegerField()
+    sender_name = models.CharField(max_length=30)
+    sender_picture = models.ImageField()
+    contact_date = models.DateTimeField(default=datetime.now, blank=True)
+
+    def __str__(self):
+        """Django uses this to convert an object to a string"""
+        return self.receiver_name
+
+class SentProjectRequest(models.Model):
+    """ defines a notification model for the sent project requests """
+
+    message = models.CharField(max_length=50, default="has requested to join your project")
+    receiver_id = models.IntegerField()
+    receiver_name = models.CharField(max_length=30)
+    sender_id = models.IntegerField()
+    sender_name = models.CharField(max_length=30)
+    sender_picture = models.ImageField()
+    project_name = models.CharField(max_length= 70)
+    contact_date = models.DateTimeField(default=datetime.now, blank=True)
+
+    def __str__(self):
+        """Django uses this to convert an object to a string"""
+        return self.receiver_name
 
 
-    
-    

@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css">  
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
 <link rel="stylesheet" href="{% static 'CSS/lightbox.css' %}">  
@@ -37,9 +38,9 @@
     <section class="mb-5">
         <div class="container">
             <!--Back button-->
-            <a href="{% url 'dashboard' %}" class="btn btn-light mb-4">
+            <!-- <a href="{% url 'my_project' %}" class="btn btn-light mb-4">
                 <i class="fas fa-angle-left mr-2"></i>Back To Projects
-            </a>
+            </a> -->
             
             <div class="row">
               <!--Project box-->
@@ -113,6 +114,7 @@
                   <hr>
 
                   <!--Attached Media-->
+                  {% if project.photo_1 or project.photo_2 or project.photo_3 %}
                   <div class="">
                     <h6><b>Attached Media</b></h6>
                       <!-- Thumbnails -->
@@ -139,21 +141,24 @@
                         {% endif %}
                       </div>
                   </div>
+                  {% endif %}
                   <hr>
 
                   <!--Atached Links-->
+                  {% if project.link_1 or project.link_2 or project.link_3 %}
                   <div class="">
                     <h6><b>Attached Links</b></h6>
                     {% if project.link_1 %}
-                    <a href="###" style="display:inline-block">{{ project.link_1 }}</a><br>
+                    <a href="{{ project.link_1 }}" target="_blank" style="display:inline-block">{{ project.link_1 }}</a><br>
                     {% endif %}
                     {% if project.link_2 %}
-                    <a href="###" style="display:inline-block">{{ project.link_2 }}</a><br>
+                    <a href="{{ project.link_2 }}" target="_blank" style="display:inline-block">{{ project.link_2 }}</a><br>
                     {% endif %}
                     {% if project.link_3 %}
-                    <a href="###" style="display:inline-block">{{ project.link_3 }}</a><br>
+                    <a href="{{ project.link_3 }}" target="_blank" style="display:inline-block">{{ project.link_3 }}</a><br>
                     {% endif %}
                   </div>
+                  {% endif %}
                   <br>
                 </div>
               </div>
@@ -172,8 +177,8 @@
                         <a href="{% url 'project_edit' project.id %}"  class="btn btn-info btn-block">Edit Project</a>
                         <a href="{% url 'project_delete' project.id %}" class="btn btn-danger btn-block">Delete Project</a>
                     {% else %}
-                        <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Message</button>
-                        <button class="btn btn-info btn-block" >View Profile</button>
+                        <!-- <button type="button" class="btn btn-primary btn-block"  data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Message</button> -->
+                        <a href="{% url 'profile' project.user_id %}" class="btn btn-info btn-block">View Profile</a>
                         <a href="{% url 'project_contact' project.id %}" class="btn btn-success btn-block">Join Project</a>
                     {% endif %}
                     

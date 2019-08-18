@@ -34,7 +34,7 @@
   <a href="{% url 'search_project' %}" role="button" class="btn btn-outline-success"><b>Browse Projects</b></a>
 </div>
 
-<div class="container">
+<div class="container mb-5">
   <div class="row">
 
     <!--Body + NewsFeed-->
@@ -139,7 +139,7 @@
           {% else %}
               {{ user.profile_picture.url }}
           {% endifequal %} -->
-          <img src="{{ user.profile_picture.url }}" id="dash-profile-picture" />
+          <img src="{{ user.profile_picture.url }}" style="width:60%; border-radius:0%;"  id="dash-profile-picture" />
   
           </div>
           <div class="col-md-7 profile-card">
@@ -207,14 +207,11 @@
               </div>
           </div>
         </div>
-
-
       </div>
-
     </div>
-
   </div>
 </div>
+
 </body>
 
 <!-- Scripts -->

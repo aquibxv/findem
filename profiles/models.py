@@ -18,6 +18,11 @@ class UserProfileManager(BaseUserManager):
         # turns the email to lower case and saves it in user object
         email = self.normalize_email(email)
 
+        # if profile_picture is set as none
+        if profile_picture == None:
+            profile_picture = 'photos/user.gif'
+
+
         user = self.model(email=email, name=name, profile_picture=profile_picture, highest_degree_earned=highest_degree_earned,
                 college_name=college_name, graduation_year=graduation_year, skill_1=skill_1, skill_2=skill_2,
                 skill_3=skill_3, skill_4=skill_4, skill_5=skill_5, skill_6=skill_6, join_date=join_date)
@@ -48,21 +53,21 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
     email = models.EmailField(max_length=255, unique=True)
     name = models.CharField(max_length=255, default=profile_pic)
-    profile_picture = models.ImageField(upload_to='photos/%y/%m/%d/')
+    profile_picture = models.ImageField(upload_to='photos/profile_pictures/', default='photos/profile_pictures/user.gif', null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     highest_degree_earned = models.CharField(max_length=255, blank=False)
     college_name = models.CharField(max_length=255, blank=False)
     graduation_year = models.IntegerField(default=2020, blank=False)
     skill_1 = models.CharField(max_length=20, blank=False)
-    skill_2 = models.CharField(max_length=20, blank=True)
-    skill_3 = models.CharField(max_length=20, blank=True)
-    skill_4 = models.CharField(max_length=20, blank=True)
-    skill_5 = models.CharField(max_length=20, blank=True)
-    skill_6 = models.CharField(max_length=20, blank=True)
-    project_count = models.IntegerField(blank=True, default=0)
-    notification = models.IntegerField(blank=True, default=0)
-    join_date = models.DateTimeField(default = datetime.now, blank=True)
+    skill_2 = models.CharField(max_length=20, blank=True, null=True)
+    skill_3 = models.CharField(max_length=20, blank=True, null=True)
+    skill_4 = models.CharField(max_length=20, blank=True, null=True)
+    skill_5 = models.CharField(max_length=20, blank=True, null=True)
+    skill_6 = models.CharField(max_length=20, blank=True, null=True)
+    project_count = models.IntegerField(blank=True, default=0, null=True)
+    notification = models.IntegerField(blank=True, default=0, null=True)
+    join_date = models.DateTimeField(default = datetime.now)
     
 
     objects = UserProfileManager()
@@ -98,35 +103,33 @@ class PersonalInformation(models.Model):
     """Represents a user's personal Infromation inside our system"""
 
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    mobile = models.CharField(max_length=10 ,blank=True)
-    bio = models.TextField(max_length=200, blank=True)
-    college_university = models.CharField(max_length=100, blank=False)
-    course = models.CharField(max_length=100, blank=False)
-    language_1 = models.CharField(max_length=100, blank=True)
-    language_2 = models.CharField(max_length=100, blank=True)
-    language_3 = models.CharField(max_length=100, blank=True)
-    branch = models.CharField(max_length=100, blank=False)
-    to_date = models.DateField(blank=False)
-   
+    mobile = models.CharField(max_length=10 ,blank=True, null=True)
+    bio = models.TextField(max_length=200, blank=True, null=True)
+    language_1 = models.CharField(max_length=100, blank=True, null=True)
+    language_2 = models.CharField(max_length=100, blank=True, null=True)
+    language_3 = models.CharField(max_length=100, blank=True, null=True)
+    branch = models.CharField(max_length=100, blank=True, null=True)
+    college_university = models.CharField(max_length=500, blank=True, null=True)
+    
 
     def __str__(self):
         """Django uses this to convert an object to a string"""
-        return self.college_university
+        return self.user.name
 
 class SocialPlatform(models.Model):
     """ Attaches all the Social Platform to a user """
 
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    website = models.URLField(blank=True, default='')
-    linkedIn = models.URLField(blank=True, default='')
-    facebook = models.URLField(blank=True, default='')
-    twitter = models.URLField(blank=True, default='')
-    instagram = models.URLField(blank=True, default='')
-    youtube = models.URLField(blank=True, default='')
-    github = models.URLField(blank=True, default='')
-    hackerRank = models.URLField(blank=True, default='')
-    medium = models.URLField(blank=True, default='')
-    quora = models.URLField(blank=True, default='')
+    website = models.URLField(blank=True, default='', null=True)
+    linkedIn = models.URLField(blank=True, default='', null=True)
+    facebook = models.URLField(blank=True, default='', null=True)
+    twitter = models.URLField(blank=True, default='', null=True)
+    instagram = models.URLField(blank=True, default='', null=True)
+    youtube = models.URLField(blank=True, default='', null=True)
+    github = models.URLField(blank=True, default='', null=True)
+    hackerRank = models.URLField(blank=True, default='', null=True)
+    medium = models.URLField(blank=True, default='', null=True)
+    quora = models.URLField(blank=True, default='', null=True)
 
     def __str__(self):
         """Django uses this to convert an object to a string"""
@@ -136,10 +139,10 @@ class Accomplishments(models.Model):
     """Represent's a users accomplishment's inside our system"""
 
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    project_title = models.CharField(max_length=200, blank=True, default='')
-    project_description = models.TextField(blank=True, default='')
-    from_date = models.DateField(blank=True)
-    to_date = models.DateField(blank=True)
+    project_title = models.CharField(max_length=200)
+    project_description = models.TextField()
+    from_date = models.DateField()
+    to_date = models.DateField()
     # test_score = models.CharField(max_length=100, blank=True)
     # test_description = models.TextField(blank=True)
     # test_date = models.DateField(blank=True)
@@ -154,9 +157,9 @@ class WorkExperience(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
     company = models.CharField(max_length=100)
-    from_date = models.DateField(blank=True, default=None)
-    to_date = models.DateField(blank=True, default=None)
-    description = models.TextField(blank=True, default=' ')
+    from_date = models.DateField()
+    to_date = models.DateField()
+    description = models.TextField(max_length=500)
 
     def __str__(self):
         """Django uses this to convert an object to a string"""
@@ -166,9 +169,9 @@ class Location(models.Model):
     """Reperesents a users location details in our system"""
 
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    country = models.CharField(max_length=200, blank=True)
-    State = models.CharField(max_length=200, blank=True)
-    city = models.CharField(max_length=200, blank=True)
+    country = models.CharField(max_length=200, blank=True, null=True)
+    State = models.CharField(max_length=200, blank=True, null=True)
+    city = models.CharField(max_length=200, blank=True, null=True)
 
     def __str__(self):
         """Django uses this to convert an object to a string"""

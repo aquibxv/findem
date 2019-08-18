@@ -168,7 +168,7 @@
 
     <!--Form for collecting project data-->
     <form class="needs-validation project-form" novalidate autocomplete="off"
-     action="{% url 'create' %}" method="POST">
+     action="{% url 'create' %}" method="POST" enctype="multipart/form-data">
      {% csrf_token %}
         <!--Project Author - automatically filled-->
         <div class="form-group mb-4">
@@ -233,7 +233,7 @@
                 <!--Div tag for uploading a file-->
                 <div class="element-media mb-2 p-2">
                     <label>Upload file :</label>
-                    <input type="file" name="upload_file1" id="upload_file1" src="{{ project.photo_1.url }}"/>
+                    <input type="file" name="upload_file1" id="upload_file1" />
                 </div>
                   
                 <div id="moreImageUpload"></div>
@@ -352,7 +352,6 @@
         <div>
             <a href="{% url 'dashboard' %}" class="btn btn-warning btn-md"><b>Nah! Cancel it</b></a>
             <button type="button submit" class="btn btn-success btn-md"><b>Yes, Post my Project!</b></button>
-            
         </div>
     </form>
 

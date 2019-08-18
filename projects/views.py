@@ -25,9 +25,9 @@ def create(request):
         skill_2 = request.POST.get('upload_skill2', ' ')
         skill_3 = request.POST.get('upload_skill3', ' ')
         skill_4 = request.POST.get('upload_skill4', ' ')
-        photo_1 = request.POST.get('upload_file1')
-        photo_2 = request.POST.get('upload_file2')
-        photo_3 = request.POST.get('upload_file3')
+        photo_1 = request.FILES.get('upload_file1', None)
+        photo_2 = request.FILES.get('upload_file2', None)
+        photo_3 = request.FILES.get('upload_file3', None)
         link_1 =  request.POST.get('upload_link1', ' ')
         link_2 =  request.POST.get('upload_link2', ' ')
         link_3 =  request.POST.get('upload_link3', ' ')
@@ -149,16 +149,16 @@ def project_edit(request, project_id):
         title = request.POST.get('project-name')
         description = request.POST.get('project-descirpt')
         college = request.user.college_name
-        skill_1 = request.POST.get('upload_skill1', ' ')
-        skill_2 = request.POST.get('upload_skill2', ' ')
-        skill_3 = request.POST.get('upload_skill3', ' ')
-        skill_4 = request.POST.get('upload_skill4', ' ')
-        photo_1 = request.POST.get('upload_file1', None)
-        photo_2 = request.POST.get('upload_file2', None)
-        photo_3 = request.POST.get('upload_file3', None)
-        link_1 =  request.POST.get('upload_link1', ' ')
-        link_2 =  request.POST.get('upload_link2', ' ')
-        link_3 =  request.POST.get('upload_link3', ' ')
+        skill_1 = request.POST.get('upload_skill1')
+        skill_2 = request.POST.get('upload_skill2')
+        skill_3 = request.POST.get('upload_skill3')
+        skill_4 = request.POST.get('upload_skill4')
+        photo_1 = request.FILES.get('upload_file1', None)
+        photo_2 = request.FILES.get('upload_file2', None)
+        photo_3 = request.FILES.get('upload_file3', None)
+        link_1 =  request.POST.get('upload_link1')
+        link_2 =  request.POST.get('upload_link2')
+        link_3 =  request.POST.get('upload_link3')
         domain =  request.POST.get('project-domain')
         project_type = request.POST.get('project-type')
         resume_inclusion = request.POST.get('project-resume-add', 'false')
@@ -202,12 +202,21 @@ def project_edit(request, project_id):
             project.deadline = deadline
 
         project.save()
+        
+        # return redirect('pages/dashboard.html')
+        projects = Project.objects.order_by('-upload_date')
+        projects = projects.filter(user_id=request.user.id)
 
-        # return redirect(request, 'dashboard')
+        context = {
+            'projects' : projects
+        }
+        messages.success(request, "Project details updated successfullly!")
+        return render(request, 'profile/my_project.html', context)
 
-    context = {
+
+    else:
+        context = {
         'project' : project,
         'project_type_choices' : project_type_choices,
-    }
-
-    return render(request, 'projects/project_edit.html', context)
+        }
+        return render(request, 'projects/project_edit.html', context)

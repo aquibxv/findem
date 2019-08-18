@@ -11,7 +11,8 @@
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_UserProfile.css'  %}">   
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_Dashboard.css' %}">
+
 <style>
 html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
 .center {
@@ -74,7 +75,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
           <!--Table for skills Display-->
           <table style="width:70%; color:rgb(51, 47, 47);" >
             <!--Skill rows-->
-            {% if profile.skill_1 %}
+            {% if profile.skill_1 != None %}
               <tr >
                 <td class="mb-5">
                   <h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>{{ profile.skill_1 }}</h6></td>
@@ -82,7 +83,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                 <td class="mb-5"><h6>Highly Skilled</h6></td> -->
               </tr>
             {% endif %}
-            {% if profile.skill_1 %}
+            {% if profile.skill_2 != None %}
               <tr >
                   <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
                     {{ profile.skill_2 }}</h6></td>
@@ -90,7 +91,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                   <td class="mb-5"><h6>Intermediate</h6></td> -->
               </tr>
               {% endif %}
-            {% if profile.skill_3 %}
+            {% if profile.skill_3 != None %}
               <tr >
                   <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
                     {{ profile.skill_3 }}</h6></td>
@@ -98,7 +99,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                   <td class="mb-5"><h6>Highly Skilled</h6></td> -->
               </tr>
               {% endif %}
-            {% if profile.skill_4 %}
+            {% if profile.skill_4 != None %}
                <tr >
                 <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
                   {{ profile.skill_4 }}</h6></td>
@@ -106,7 +107,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                 <td class="mb-5"><h6>Beginner!</h6></td> -->
                </tr>
             {% endif %}
-            {% if profile.skill_5 %}
+            {% if profile.skill_5 != None%}
               <tr >
                   <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
                     {{ profile.skill_5 }}</h6></td>
@@ -114,7 +115,7 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
                   <td class="mb-5"><h6>Beginner!</h6></td> -->
               </tr>
               {% endif %}
-            {% if profile.skill_6 %}
+            {% if profile.skill_6 != None%}
               <tr >
                   <td class="mb-5"><h6><i class="fas fa-long-arrow-alt-right mr-2  ml-1"></i>
                     {{ profile.skill_6 }}</h6></td>
@@ -142,51 +143,53 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
     <!-- Right Column -->
     <div class="w3-twothird">
     
-      {% if work_exp %}
+      {% if work_exps %}
       <!--Work Experinece-->
-      <div class="w3-container w3-card w3-white w3-margin-bottom">
-        <h2 class="w3-text-grey w3-padding-16">
-        <i style="color:rgb(17, 151, 140)" class="fas fa-briefcase mr-2"></i>Work Experience</h2>
-       
-       <!--Work experinece block-->
-        <div class="w3-container">
-          <h5 class="w3-opacity"><b>{{ work_exp.title }}/ {{ work_exp.company }}</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ work_exp.from_date }}<span class="w3-tag w3-teal w3-round">{{ work_exp.to_date }}</span></h6>
-          <p>{{ work_exp.description }}</p>
-          <hr>
+        <div class="w3-container w3-card w3-white w3-margin-bottom">
+          <h2 class="w3-text-grey w3-padding-16">
+          <i style="color:rgb(17, 151, 140)" class="fas fa-briefcase mr-2"></i>Work Experience</h2>
+        {%  for work_exp in work_exps%}
+        <!--Work experinece block-->
+          <div class="w3-container">
+            <h5 class="w3-opacity"><b>{{ work_exp.title }}/ {{ work_exp.company }}</b></h5>
+            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ work_exp.from_date }}<span class="w3-tag w3-teal w3-round">{{ work_exp.to_date }}</span></h6>
+            <p>{{ work_exp.description }}</p>
+            <hr>
+          </div>
+          {% endfor %}
         </div>
-      
-      </div>
       {% endif %}
 
-      {% if accomplishment %}
+      {% if accomplishments %}
       <!--Projects/Achievements-->
-      <div class="w3-container w3-card w3-white w3-margin-bottom">
-          <h2 class="w3-text-grey w3-padding-16">
-          <i style="color:rgb(17, 151, 140)"  class="fab fa-font-awesome-alt "></i>
-          Projects</h2>
-
-          <!--Project section-->
-          <div class="w3-container">
-            <h5 class="w3-opacity"><b>{{ accomplishment.project_title }}</b></h5>
-            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ accomplishment.from_date }} - {{ accomplishment.to_date }}</h6>
-            <p>{{ accomplishment.project_description }}</p>
-          </div>
-          
-          <!-- <h2 class="w3-text-grey w3-padding-16">
-              <i style="color:rgb(17, 151, 140)"  class="fab fa-font-awesome-alt "></i>
-              Test Score</h2> -->
+        <div class="w3-container w3-card w3-white w3-margin-bottom">
+        <h2 class="w3-text-grey w3-padding-16">
+        <i style="color:rgb(17, 151, 140)"  class="fab fa-font-awesome-alt "></i>
+        Projects</h2>
+        {% for accomplishment in accomplishments %}
+        <!--Project section-->
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>{{ accomplishment.project_title }}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ accomplishment.from_date }} - {{ accomplishment.to_date }}</h6>
+          <p>{{ accomplishment.project_description }}</p>
+        </div>
+        <br>
+        {% endfor %}
+        <!-- <h2 class="w3-text-grey w3-padding-16">
+            <i style="color:rgb(17, 151, 140)"  class="fab fa-font-awesome-alt "></i>
+            Test Score</h2> -->
 
 <!-- 
-          Test Score section
-          <div class="w3-container">
-            <h5 class="w3-opacity"><b>{{ accomplishment.test_score }}</b></h5>
-            <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ accomplishment.test_date }}</h6>
-            <p>{{ accomplishment.test_description }}</p>
-            <hr>
-          </div> -->
-        
-      </div>
+        Test Score section
+        <div class="w3-container">
+          <h5 class="w3-opacity"><b>{{ accomplishment.test_score }}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>{{ accomplishment.test_date }}</h6>
+          <p>{{ accomplishment.test_description }}</p>
+          <hr>
+        </div> -->
+      
+        </div>
+      
       {% endif %}
 
       <!--Social Presence-->
@@ -264,9 +267,9 @@ html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif}
        
         <!--College/Institution-->
         <div class="w3-container">
-          <h5 class="w3-opacity"><b>{{ personal_info.college_university }}</b></h5>
-          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Expected - {{ personal_info.to_date }}</h6>
-          <p class="m-0 p-0">{{ personal_info.course }}</p>
+          <h5 class="w3-opacity"><b>{{ profile.college_name }}</b></h5>
+          <h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>Expected - {{ profile.graduation_year }}</h6>
+          <p class="m-0 p-0">{{ profile.highest_degree_earned }}</p>
           <p class="m-0 p-0"><b>{{ personal_info.branch }}</b></p>
           <br>
         </div>

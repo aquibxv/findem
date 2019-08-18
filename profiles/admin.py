@@ -11,9 +11,14 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ['email', 'name', 'college_name']
     list_per_page = 20
 
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ['user', 'country', 'State', 'city']
+    list_display_links = ['user', 'country', 'State', 'city']
+    list_filter = ['country', 'State', 'city']
+
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(PersonalInformation)
 admin.site.register(SocialPlatform)
 admin.site.register(Accomplishments)
-admin.site.register(Location)
+admin.site.register(Location, LocationAdmin)
 admin.site.register(WorkExperience)

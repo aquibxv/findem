@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+     <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_SignUp.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/StyleSheet_Project.css' %}">
+	<title>Feedback | Findem</title>
+
+</head>
+<body>
+
+<!--Section for Feedback-->
+<div class="container" id="body">
+    <!--Heading and block-->
+    <div class="project-head-section">
+        <div>
+            <h4 class="title-back">Findem</h4>
+            <span class="back-btn"><a href="{% url 'dashboard' %}"><img src="{% static 'Images/back.png' %}" alt="back"></a></span>
+        </div>
+        <h4 class="display-3" style="color: green; font-size: 3rem;">Feedback</h4>
+        <h6 class="display-6">
+          Your feedback helps us improve our system and also add features to make the platform better.
+        </h6>
+        <hr/>
+    </div>
+
+    <!--Form for collecting project data-->
+    <form action="{% url 'feedback' %}" method="POST"
+    class="needs-validation project-form" novalidate autocomplete="off" >
+    {% csrf_token %}
+        <!--Title-->
+        <div class="form-group mb-4">
+            <label for="project-name"><h5 class="project-field">Title</h5> <span id="required-field">*</span>
+            <p class="project-title-detail">Enter a short title(max 100 characters)</p>
+            </label>
+            <input type="text" class="form-control" id="title" name="title"
+            style="width:100%" required>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please enter a title</div>
+        </div>
+
+        <!--Feedback-->
+        <div class="form-group mb-4">
+            <label for="project-descript">
+              <h5 class="project-field">
+                 Your Feedback 
+                </h5> 
+                <span id="required-field">*</span>
+                <p class="project-title-detail mb-2">
+                  Tell us about what you like, dislike. Any feature you would like to have or any suggestions for future improvements.
+                <p>
+            </label>
+            <textarea class="form-control" id="project-descirpt" rows="6" name="feedback" required >
+            </textarea>
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Please write your feedback</div>
+        </div>
+
+        <!--Submit buttons-->
+        <div>
+            <a href="{% url 'dashboard' %}" class="btn btn-warning btn-md"><b>Cancel</b></a>
+            <button type="button submit" class="btn btn-success btn-md"><b>Post</b></button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

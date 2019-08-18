@@ -71,7 +71,7 @@
     <!--Alerts-->
     {% include 'partials/_alerts.html' %}
     <form class="needs-validation" novalidate autocomplete="off" 
-    action="{% url 'signup' %}", method="POST">
+    action="{% url 'signup' %}", method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div id="Personal_Information">
     <h5 class="loginSignup">Personal Information</h5>
@@ -81,7 +81,7 @@
         <div class="col-sm-5">
           <div class="input-group">
           <div class="custom-file">
-           <input type="file" class="custom-file-input" id="inputprofile" name="inputprofile">
+           <input type="file" accept="image/png, image/jpeg, image/gif" class="custom-file-input" id="inputprofile" name="inputprofile">
            <label class="custom-file-label" for="inputprofile" aria-describedby="inputprofile">Choose file</label>
           </div>
          </div>
@@ -207,6 +207,7 @@
         <option value="2022">2022</option>
         <option value="2023">2023</option>
         <option value="2024">2024</option>
+        <option value="2025">2025</option>
         <option value="2026">2026</option>
         <option value="2027">2027</option>
         <option value="2028">2028</option>

@@ -40,8 +40,9 @@
 <!--Request Notifications-->
 <section class="py-4">
     <div class="container">
-      <div class="row">
-        <!--Table for User Request notifications-->
+
+      <!--Table for User Request notifications-->
+      <div class="row">  
         {% if user_requests %}
         <div class="col-md-8">
             <table class="table">
@@ -67,8 +68,8 @@
         {%endif%}
       </div>
      
+      <!--Table for project notifications-->
       <div class="row">
-        <!--Table for project notifications-->
         {% if project_requests %}
         <div class="col-md-10">
           <table class="table">
@@ -93,12 +94,68 @@
         </div>
         {% endif %}
       </div>
+
+      <!--Table for received user notifications-->
+      <div class="row">  
+          {% if received_user_requests %}
+          <div class="col-md-8">
+              <table class="table">
+                    <tbody>
+                      {% for user_request in received_user_requests %}
+                      <tr>
+                        <td> 
+                        <img src="{{ user_request.sender_picture.url }}" alt="User-Image" id="user-profile">
+                        <b>{{ user_request.sender_name }}</b> {{ user_request.message }}</td>
+                        <td>
+                          <a class="btn btn-light" href="{% url 'request_recv' %}">View</a>
+                        </td>
+                        <td>
+                          <div class="btn-group">
+                            <a href="{% url 'delete_recev_profile_notification' user_request.id %}"><i style="color: grey" class="fas fa-2x fa-times mt-1"></i></a>
+                          </div>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+              </table>
+          </div>
+          {%endif%}
+      </div>
       
-      {% if not user_requests and not project_requests %}
+      <!--Table for received project notifications-->
+      <div class="row">
+          {% if received_project_requests %}
+          <div class="col-md-10">
+            <table class="table">
+              <tbody>
+                {% for project_request in received_project_requests %}
+                  <tr>
+                      <td> 
+                      <img src="{{ project_request.sender_picture.url }}" alt="User-Image" id="user-profile">
+                      <b>{{ project_request.sender_name }}</b> {{ project_request.message }} <b>{{ project_request.project_name }}</b></td>
+                      <td>
+                        <a class="btn btn-light" href="{% url 'request_recv' %}">View</a>
+                      </td>
+                      <td>
+                        <div class="btn-group">
+                          <a href="{% url 'delete_recev_project_notification' project_request.id %}"><i style="color: grey" class="fas fa-2x fa-times mt-1"></i></a>
+                        </div>
+                      </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endif %}
+        </div>
+
+
+      {% if not user_requests and not project_requests and not received_user_requests and not received_project_requests %}
         <p><b>No notifications!</b></p>
       {% endif %}
     </div>
 </section>
+
 
 
 

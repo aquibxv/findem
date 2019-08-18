@@ -38,7 +38,7 @@
     <!--Alerts-->
     {% include 'partials/_alerts.html' %}
       <!--Form page for login-->
-      <form class="needs-validation form-signin" id="signin-form" action="{% url 'login' %}", method="POST" novalidate>
+      <form class="needs-validation form-signin" id="signin-form" action="{% url 'login' %}", method="POST" novalidate autocomplete="on">
         {% csrf_token %}
       <h1 class="h5 mb-3 font-weight-bold">Login</h1>
 
@@ -50,7 +50,7 @@
       <div>
          <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" id="inputPassword" name="password" class="form-control mt-4" placeholder="Password" required>
-          <a href="###" id="fgtpwd">Forgot password?</a>
+          <a href="{% url 'reset_password' %}" id="fgtpwd">Forgot password?</a>
       </div>
       <button class="btn btn-success btn-outline-success mt-3" id="signIn-btn" type="submit">Sign in</button>
     </form>

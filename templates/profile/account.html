@@ -1,0 +1,554 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Your Account | Findem</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">  
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!--Custom StyleSheet-->
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/StyleSheet_Settings.css' %}">
+</head>
+
+
+<body class="w3-light-grey">
+
+    <!-- Top Navigatin bar -->
+    {% include 'partials/_top-navigation-primary.html' %}
+    
+    <!--Vertical Tabs-->
+    <div class="container">
+        <div class="tab-container mt-3">
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'Personal')" id="defaultOpen">Personal</button>
+                <button class="tablinks" onclick="openCity(event, 'Skills')">Skills</button>
+                <button class="tablinks" onclick="openCity(event, 'Education')">Education</button>
+                <button class="tablinks" onclick="openCity(event, 'Social')">Social</button>
+                <button class="tablinks" onclick="openCity(event, 'Accomplish')">Accomplishments</button>
+                <button class="tablinks" onclick="openCity(event, 'Work-Exp')">Work Experience</button>
+            </div>
+              
+              <div class="tab-contents container">
+                <!--Alerts-->
+                {% include 'partials/_alerts.html' %}
+
+                <!--Personal-->
+                <div id="Personal" class="tabcontent">
+                      <h3>Personal Information</h3><hr>
+                      <form action="{% url 'account' %}" method="POST" enctype="multipart/form-data">
+                        {%csrf_token%}
+                        <input type="hidden" name="personal" value="1">
+                           <!--Profile Picture-->
+                           <div class="form-group row">
+                                <label for="input-profile" class="col-sm-3 col-form-label">Upload/ Change Picture</label>
+                                <div class="col-sm-6">
+                                  <div class="input-group">
+                                  <div class="custom-file">
+                                   <input type="file" class="custom-file-input" id="input-profile" name="profile_pic">
+                                   <label class="custom-file-label" for="input-profile" aria-describedby="input-profile">Choose file</label>
+                                  </div>
+                                 </div>
+                               </div>
+                            </div>
+
+
+                            <!--Bio-->
+                            <div class="form-group row">
+                                <label for="user-bio" class="col-sm-3 col-form-label" >Bio 
+                                    <br> <span style="font-size:0.9rem;color:rgb(117, 107, 107);"> tell something about your self</span></label>
+                                <div class="col-sm-6">
+                                    <textarea class="form-control" name="bio" id="user-bio" rows="3" >{{ personal_info.bio }}</textarea>
+                                </div>
+                            </div>
+
+
+                          <!--Language-->
+                          <div class="form-group required row">
+                              <label for="user-language" class="col-sm-3 col-form-label">Languages known
+                              </label>
+                      
+                             <div class="col-sm-6">
+                               <input type="text" class="form-control float-left mb-2" value="{{ personal_info.language_1 }}" name="language1" placeholder="Enter known language">
+                               <input type="text" class="form-control float-left mb-2" value="{{ personal_info.language_2 }}" name="language2" placeholder="Enter known language">
+                               <input type="text" class="form-control float-left mb-2" value="{{ personal_info.language_3 }}"  name="language3" placeholder="Enter known language">
+                             </div>
+                          </div>
+
+                          <button type="submit" class="btn btn-success ">Save Changes</button>
+                      </form>
+                </div>
+                    
+                <!--Skills-->
+                <div id="Skills" class="tabcontent">
+                      <h3>Skill Sets</h3><hr>
+                      <form action="{% url 'account' %}" method="POST" autocomplete="off">
+                        {%csrf_token%}
+                        <input type="hidden" name="skill" value=1>
+                        <!--Heading-->
+                        <div class= "row">
+                            <label class="col-sm-6">Your Skills
+                            </label>
+
+                            <!-- <label class="col-sm-4">Level
+                            </label> -->
+                        </div>
+
+                        <!--Skill + Level-->
+
+                        <div class="form-group">
+                            <!-- Skill set 1 -->
+                            <div class="form-group">
+                                    <div class="autocomplete" id="user-skills">
+                                       <input type="text" class="form-control" name="skill1" id="upload_skill1" value="{{ request.user.skill_1 }}"  placeholder="Enter Skill" required>
+                                    </div>
+                            </div>
+
+                           <!-- Skill set 2 -->
+                           <div class="form-group" id="user-skills">
+                                <div class="autocomplete">
+                                   <input type="text" class="form-control" name="skill2" id="upload_skill2" value="{{ request.user.skill_2 }}" placeholder="Enter Skill">
+                                </div>
+                            </div>
+                           
+                           <!-- Skill set 3 -->
+                           <div class="form-group" id="user-skills">
+                                <div class="autocomplete">
+                                   <input type="text" class="form-control" name="skill3" id="upload_skill3" value="{{ request.user.skill_3 }}"  placeholder="Enter Skill" >
+                                </div>
+                            </div>
+                           
+
+                           <!-- Skill set 4 -->
+                           <div class="form-group">
+                                <div class="autocomplete" id="user-skills">
+                                   <input type="text" class="form-control" name="skill4" id="upload_skill4" value="{{ request.user.skill_4 }}" placeholder="Enter Skill">
+                                </div>
+                            </div>
+                           
+                           <!-- Skill set 5 -->
+                           <div class="form-group">
+                                <div class="autocomplete" id="user-skills">
+                                   <input type="text" class="form-control" name="skill5" id="upload_skill5" value="{{ request.user.skill_5 }}" placeholder="Enter Skill">
+                                </div>
+                            </div>
+                           
+
+                           <!-- Skill set 6 -->
+                           <div class="form-group">
+                                <div class="autocomplete" id="user-skills">
+                                   <input type="text" class="form-control" name="skill6" id="upload_skill6" value="{{ request.user.skill_6 }}" placeholder="Enter Skill">
+                                </div>
+                            </div>
+                           
+
+
+                           <!-- <div class="row mb-2 skill-container">
+                                <div class="col-sm-4">
+                                    <input type="text" class="form-control" id="user-curr-pwd" placeholder="Enter Skill">
+                                </div>
+                                <div class="col-sm-4">
+                                  <input type="text" class="form-control" id="user-curr-pwd" placeholder="Enter Skill Level">
+                                </div>
+                           </div> -->
+                        </div>
+                        
+                        <button type="submit" class="btn btn-success mt-3">Save Changes</button>
+                    </form>
+                </div>
+                    
+                <!--Education-->
+                <div id="Education" class="tabcontent">
+                      <h3>Education</h3> <hr>
+                      <form action="{% url 'account' %}" method="POST" >
+                        {%csrf_token%}
+                        <input type="hidden" name="education" value=1>
+                        <!--College/University-->
+                        <div>
+                        <h4>College/University</h4> <br>
+                        <!--College Name-->
+                            <div class="form-group row">
+                                    <label for="user-college-name" class="col-sm-3 col-form-label">College/University
+                                    </label>
+
+                                <div class="col-sm-6 mb-0">
+                                    <div class="form-group mb-0">
+                                        <div class="autocomplete mb-0">
+                                            <input type="text" class="form-control" name="collage" id="college-name" value="{{ user.college_name }}" placeholder="College/University name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+        
+                                <!--Course-->
+                                <div class="form-group row">
+                                    <label for="user-college-course" class="col-sm-3 col-form-label">Course
+                                    </label>
+                            
+                                <div class="col-sm-6">
+                                        <select class="custom-select select-input" id="user-college-course" name="course">
+                                                <option selected="true"  disabled="disabled">Select Course</option>
+                                                {% for key, value in courses_choices.items %}
+                                                    <option value="{{ key }}"
+                                                    {% if key == user.highest_degree_earned %}
+                                                    selected
+                                                    {% endif %}
+                                                    >{{ value }}</option>
+                                              {% endfor %}
+                                        </select>
+                                </div>
+                                </div>
+        
+                                <!--Stream-->
+                                <div class="form-group row">
+                                    <label for="user-college-branch" class="col-sm-3 col-form-label">Branch
+                                    </span>
+                                    </label>
+                            
+                                <div class="col-sm-6">
+                                        <select class="custom-select select-input" id="user-college-branch" name="branch">
+                                                <option selected="true"  disabled="disabled">Select Branch</option>
+                                                {% for key, value in branch_choices.items %}
+                                                    <option value="{{ key }}"
+                                                    {% if key == personal_info.branch %}
+                                                    selected
+                                                    {% endif %}
+                                                    >{{ value }}</option>
+                                              {% endfor %}
+                                        </select>
+                                </div>
+                                </div>
+
+                                <!--Grad Year-->
+                                <div class="form-group">
+                                    <!--Grad Year-->
+                                    <div class="row mb-3">
+                                        <label for="user-college-from" class="col-sm-3 col-form-label">Graducation Year
+                                            </span>
+                                        </label>
+                                    
+                                        <div class="col-sm-6">
+                                                <select class="custom-select select-input" id="user-college-from" name="grad_year">
+                                                        <option selected="true"  disabled="disabled">Select Graduation Year</option>
+                                                        {% for key, value in grad_year_choices.items %}
+                                                            <option value= {{ key }}
+                                                            {% if key == user.graduation_year %}
+                                                            selected
+                                                            {% endif %}
+                                                            >{{ value }}</option>
+                                                      {% endfor %}
+                                                </select>
+                                        </div>
+                                    </div> 
+                                </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                      </form>
+                </div>
+
+                <!--Social-->
+                <div id="Social" class="tabcontent">
+                        <h3>Social Platforms</h3> <hr>
+                        <form action="{% url 'account' %}" method="POST">
+                        {%csrf_token%}
+                        <input type="hidden" value=1 name="social">
+                            <!--Website-->
+                            <div class="form-group row">
+                                <label for="user-website" class="col-sm-2 col-form-label">Website</label>
+
+                                <div class="input-group col-sm-5">
+                                    <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1"><i class="fas fa-globe-americas"></i></span>
+                                    </div>
+                                <input type="text" class="form-control" placeholder="http://" id="user-website" name="website" value="{{ social_info.website }}"aria-describedby="basic-addon1">
+                                </div>
+                            </div>
+
+                            <!--LinkedIn-->
+                            <div class="form-group row">
+                                    <label for="user-likedin" class="col-sm-2 col-form-label">LinkedIn</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-linkedin"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-linkedin" name="linkedin" value="{{ social_info.linkedIn }}" aria-describedby="basic-addon1">
+                                    </div>
+                            </div>
+
+                            <hr>   
+
+                            <!--Facebook-->
+                            <div class="form-group row">
+                                    <label for="user-facebook" class="col-sm-2 col-form-label">Facebook</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-facebook"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" name="facebook" id="user-fb"
+                                      aria-describedby="basic-addon1" value="{{ social_info.facebook }}">
+                                    </div>
+                                </div>
+
+                            <!--Twitter-->
+                            <div class="form-group row">
+                                    <label for="user-twitter" class="col-sm-2 col-form-label">Twitter</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-twitter"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-twitter" name="twitter" value="{{ social_info.twitter }}" aria-describedby="basic-addon1">
+                                    </div>
+                                </div>
+
+                            <!--Instagram-->
+                            <div class="form-group row">
+                                    <label for="user-instagram" class="col-sm-2 col-form-label">Instagram</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-instagram"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-instagram" name="instagram" value="{{ social_info.instagram }}" aria-describedby="basic-addon1">
+                                    </div>
+                            </div>
+
+                            <!--Youtube-->
+                            <div class="form-group row">
+                                    <label for="user-youtube" class="col-sm-2 col-form-label">Youtube</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-youtube"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-instagram" name="youtube" value="{{ social_info.youtube }}" aria-describedby="basic-addon1">
+                                    </div>
+                            </div>
+
+                            <hr>
+
+                            <!--Github-->
+                            <div class="form-group row">
+                                    <label for="user-github" class="col-sm-2 col-form-label">Github</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-github"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-github" name="github" value="{{ social_info.github }}" aria-describedby="basic-addon1">
+                                    </div>
+                            </div>
+
+                            <!--HackerRank-->
+                            <div class="form-group row">
+                                    <label for="user-hackerrank" class="col-sm-2 col-form-label">HackerRank</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-hackerrank"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-hackerrank" name="hackerrank" value="{{ social_info.hackerRank }}" aria-describedby="basic-addon1">
+                                    </div>
+                            </div>
+
+                            <hr>
+
+                            <!--Medium-->
+                            <div class="form-group row">
+                                    <label for="user-medium" class="col-sm-2 col-form-label">Medium</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-medium"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-medium" name="medium" value="{{ social_info.medium }}" aria-describedby="basic-addon1">
+                                    </div>
+                            </div>
+
+                            <!--Quora-->
+                            <div class="form-group row">
+                                    <label for="user-quora" class="col-sm-2 col-form-label">Quora</label>
+    
+                                    <div class="input-group col-sm-5">
+                                        <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1"><i class="fab fa-quora"></i></span>
+                                        </div>
+                                    <input type="text" class="form-control" placeholder="http://" id="user-hackerrank" name="quora" value="{{ social_info.quora }}" aria-describedby="basic-addon1">
+                                    </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                        </form>
+                </div>
+                
+
+                <!--Accomplishments-->
+                <div id="Accomplish" class="tabcontent">
+                        <h3>Projects</h3> <hr>
+                        <!--Projects Tab-->
+                        <div >        
+                            <form action="{% url 'account' %}" method="POST">
+                            {%csrf_token%}
+                            <input type="hidden"  value=1 name="accomplishment" 
+                                <div class="project-container">
+                                        <!--Title-->
+                                        <div class="form-group required row">
+                                                <label for="project-title" class="col-sm-3 col-form-label">Project Title
+                                                </label>
+                                        
+                                            <div class="col-sm-5">
+                                                <input type="text" class="form-control" name="title" id="project-title" required>
+                                                </div>
+                                        </div>
+
+                                        <!--Description-->
+                                        <div class="form-group row">
+                                                <label for="project-descp" class="col-sm-3 col-form-label" >Project Description </label>
+                                                <div class="col-sm-5">
+                                                    <textarea class="form-control" id="project-descpt" name="description" rows="4" required></textarea>
+                                                </div>
+                                        </div>
+
+                                        <!--From and To timeline-->
+                                        <div class="form-group">
+                                                <!--From Date-->
+                                                <div class="row mb-3">
+                                                    <label for="user-project-from" class="col-sm-3 col-form-label">From
+                                                        </span>
+                                                    </label>
+                                                
+                                                    <div class="col-sm-4">
+                                                        <div class="row">
+                                                           <input type="date" name="from_date" class="form-control ml-3" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+            
+                                                <!--To Date-->
+                                                <div class="row mb-3">
+                                                        <label for="user-project-from" class="col-sm-3 col-form-label">To
+                                                            </span>
+                                                        </label>
+                                                    
+                                                        <div class="col-sm-4">
+                                                            <div class="row">
+                                                               <input type="date" name="to_date" class="form-control ml-3" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                        </div>
+                                </div>
+                                <button type="submit" class="btn btn-success">Save Changes</button>
+                            </form>
+                </div>
+
+                <!--Work Experience-->
+                <div id="Work-Exp" class="tabcontent">
+                        <h3>Work Experience</h3> <hr>
+                        <form action="{% url 'account' %}" method="POST">
+                        {%csrf_token%}
+                        <input type="hidden" name="work" value=1>
+                            <div class="work-container">
+                                <!--Tilte?Role-->
+                                <div class="form-group required row">
+                                        <label for="work-title" class="col-sm-3 col-form-label">Title/ Role
+                                        </label>
+                                    
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" name="title" id="work-title" required>
+                                            </div>
+                                </div>
+    
+                                <!--Company-->
+                                <div class="form-group required row">
+                                        <label for="work-company" class="col-sm-3 col-form-label">Company/ Organization
+                                        </label>
+                                    
+                                        <div class="col-sm-5">
+                                            <input type="text" class="form-control" name="company" id="work-company" required>
+                                        </div>
+                                </div>
+    
+                                <!--From and to Date-->
+                                <div class="form-group">
+                                        <!--From Date-->
+                                        <div class="row mb-3">
+                                            <label for="user-project-from" class="col-sm-3 col-form-label">From
+                                                </span>
+                                            </label>
+                                        
+                                            <div class="col-sm-4">
+                                                <div class="row">
+                                                   <input type="date" name="from_date" class="form-control ml-3" required>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                        <!--To Date-->
+                                        <div class="row mb-3">
+                                                <label for="user-project-from" class="col-sm-3 col-form-label">To
+                                                    </span>
+                                                </label>
+                                            
+                                                <div class="col-sm-4">
+                                                    <div class="row">
+                                                       <input type="date" name="to_date" class="form-control ml-3" required>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                </div>
+                               
+    
+                                <!--Description-->
+                                <div class="form-group row">
+                                        <label for="work-descp" class="col-sm-3 col-form-label" >Description 
+                                            <br> <span style="font-size:0.9rem;color:rgb(117, 107, 107);"> tell something about the work you did</span></label>
+                                        <div class="col-sm-6">
+                                            <textarea class="form-control" id="work-descp" name="description" rows="3" required></textarea>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                            </form>
+                </div>
+
+              </div>
+        </div>
+    </div>
+
+<script>
+    // Script for Tab links
+      function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+      
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+</script>
+
+<!--Custom Javascript-->
+<script type="text/javascript" src="{% static 'JS/Settings.js' %}"></script>
+</body>
+</html>

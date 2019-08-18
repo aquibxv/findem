@@ -4,10 +4,29 @@
 <nav class="top-nav">
     <div class="container">
         <div class="topnav" id="myTopnav">
-            <a href="{% url 'my_project' %}" class="">My Projects</a>
-            <a href="{% url 'dashboard' %}" class="active-link">Dashboard</a>
-            <a href="{% url 'requests' %}" class="">Requests</a>
-            <a href="{% url 'messages' %}" class="">Messages</a>
+            <a href="{% url 'my_project' %}" 
+            {% if 'myprojects' in request.path %}
+                class="active-link"
+            {% endif %}
+            >My Projects</a>
+
+            <a href="{% url 'dashboard' %}" 
+            {% if 'dashboard' in request.path %}
+                class = "active-link"
+            {% endif %}
+            >Dashboard</a>
+
+            <a href="{% url 'requests' %}"
+            {% if 'request_sent' in request.path %}
+                class = "active-link"
+            {% endif %}
+            >Requests</a>
+
+            <a href="{% url 'messages' %}" style="display: none"
+            {% if 'messages' in request.path %}
+                class = "active-link"
+            {% endif %}
+            >Messages</a>
   
             <a href="javascript:void(0);" class="icon" onclick="topnavbutton()">
             <i class="fa fa-bars"></i> </a>

@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<title>Settings | Findem</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">  
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!--Custom StyleSheet-->
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/Style1.css' %}">
+<link rel="stylesheet" href="{% static 'CSS/StyleSheet_Settings.css' %}">
+
+<style>
+    
+</style>
+<body class="w3-light-grey">
+
+    <!-- Top Navigatin bar -->
+    {% include 'partials/_top-navigation-primary.html' %}
+    
+    <!--Vertical Tabs-->
+    <div class="container">
+        <div class="tab-container mt-3">
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'General')" id="defaultOpen">General</button>
+                <button class="tablinks" onclick="openCity(event, 'Password')">Password</button>
+                <button class="tablinks" onclick="openCity(event, 'Location')">Location</button>
+            </div>
+              
+            <div class="tab-contents container">
+                <!--Alerts-->
+                {% include 'partials/_alerts.html' %}
+
+                  <div id="General" class="tabcontent">
+                      <h3>General Settings</h3><hr>
+                      <form action="{% url 'settings' %}" method="POST">
+                        {%csrf_token%}
+                        <input type="hidden" name="general" value=1>
+                          <!--Name-->
+                          <div class="form-group required row">
+                              <label for="name" class="col-sm-3 col-form-label">Name
+                               </span>
+                              </label>
+                      
+                             <div class="col-sm-5">
+                               <input type="text" class="form-control" id="name" name="name" 
+                               value="{{ user.name }}">
+                              </div>
+                          </div>
+
+                           <!--email-->
+                           <div class="form-group required row">
+                              <label for="user-mail" class="col-sm-3 col-form-label">Contact Mail
+                               </span>
+                              </label>
+                      
+                             <div class="col-sm-5">
+                               <input type="email" class="form-control" id="user-mail"
+                               name="mail" value="{{ user.email }}">
+                              </div>
+                          </div>
+
+                          <!--Mobile-->
+                          <div class="form-group required row">
+                              <label for="user-mobile" class="col-sm-3 col-form-label">Contact Mobile
+                               </span>
+                              </label>
+                      
+                             <div class="col-sm-5">
+                               <input type="text" class="form-control" id="user-mobile"
+                               name="mobile" value="{{ info.mobile }}">
+                              </div>
+                          </div>
+
+                          <button type="submit" class="btn btn-success ">Save Changes</button>
+                          <button class="btn btn-secondary btn-sm float-right mr-5">Deactivate Account</button>
+                      </form>
+                    </div>
+                    
+                    <div id="Password" class="tabcontent">
+                      <h3>Change Password</h3><hr>
+                      <form action="{% url 'settings' %}" method="POST">
+                        {%csrf_token%}
+                        <input type="hidden" name="password" value=1>
+                        <!--Current Password-->
+                        <div class="form-group required row">
+                            <label for="user-curr-pwd" class="col-sm-3 col-form-label">Current Password
+                             </span>
+                            </label>
+                    
+                           <div class="col-sm-5">
+                             <input type="password" class="form-control" id="user-curr-pwd" name="curr_password" placeholder="Enter current password" required>
+                            </div>
+                        </div>
+
+                        <!--New Password-->
+                        <div class="form-group required row">
+                            <label  class="col-sm-3 col-form-label ">New Password
+                             </span>
+                            </label>
+                    
+                           <div class="col-sm-5">
+                             <input type="password" class="form-control" name="new_password" placeholder="Enter new password" required>
+                            </div>
+                        </div>
+
+                        <!--Renter new password-->
+                        <div class="form-group required row">
+                            <label for="user-re-pwd" class="col-sm-3 col-form-label">Re-enter Password
+                             </span>
+                            </label>
+                    
+                           <div class="col-sm-5">
+                             <input type="password" class="form-control" id="user-re-pwd" name="confirm_password" placeholder="Re-enter password" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Change Password</button>
+                      </form>
+                    </div>
+                    
+                    <div id="Location" class="tabcontent">
+                      <h3>Location Settings</h3> <hr>
+                      <form action="{% url 'settings' %}" method="POST">
+                        {%csrf_token%}
+                      <input type="hidden" name="location" value=1>
+                      <!--Country-->
+                      <div class="form-group required row">
+                          <label for="user-country" class="col-sm-3 col-form-label">Country
+                          </label>
+                  
+                         <div class="col-sm-5">
+                           <input type="text" class="form-control" id="user-country"
+                           name="country" value="{{ location.country }}" >
+                          </div>
+                      </div>
+
+                      <!--State-->
+                      <div class="form-group required row">
+                          <label for="user-state" class="col-sm-3 col-form-label">State
+                          </label>
+                  
+                         <div class="col-sm-5">
+                           <input type="text" class="form-control" id="user-state"
+                           name="state" value="{{ location.State }}">
+                          </div>
+                      </div>
+
+                      <!--Nearest City-->
+                      <div class="form-group required row">
+                          <label for="user-city" class="col-sm-3 col-form-label">City
+                           </span>
+                          </label>
+                  
+                         <div class="col-sm-5">
+                           <input type="text" class="form-control" id="user-city"
+                           name="city" value={{location.city}}>
+                          </div>
+                      </div>
+
+                      <button type="submit" class="btn btn-success">Save Changes</button>
+                      </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+  <script>
+      function openCity(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+      
+      // Get the element with id="defaultOpen" and click on it
+      document.getElementById("defaultOpen").click();
+  </script>
+</body>
+</html>
