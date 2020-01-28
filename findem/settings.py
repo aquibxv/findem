@@ -171,12 +171,12 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Google OAuth Authentication Backend
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '194502321720-fn0ksc55k255vp0mrp39q84mh4tgppdp.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'suJ6QD_hNsngSPowJinWKDFm'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = 
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 
 
 # Facebook OAuth Authentication Backend
-SOCIAL_AUTH_FACEBOOK_KEY = '805951473094034'                       # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = 'df339414ba6fd5c4fb9bd8fb91cfaee3'  # App Secret
+SOCIAL_AUTH_FACEBOOK_KEY =             # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET =  # App Secret
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
