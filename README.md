@@ -14,6 +14,4 @@ Social Networking and collaborating platform for college students build using Dj
 - post projects that you are working on and collaborate on live projects happening in your college <br/>
 
 
-
-
-
+<h4> Link to ScreenShots - https://drive.google.com/drive/folders/1CY3kc7yK8HLZZQxeSeqkknA_PCR7BhFm?usp=sharing </h4>
